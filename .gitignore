@@ -11,6 +11,7 @@ __pycache__/
 # Output data (local to each user)
 cache/
 digests/
+podcasts/
 .history.jsonl
 
 # OS

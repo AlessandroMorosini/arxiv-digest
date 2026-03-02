@@ -6,6 +6,8 @@ allowed-tools:
   - Bash(xelatex:*)
   - Bash(pdflatex:*)
   - Bash(python3 -c:*)
+  - Bash(python3 ./podcast_paper.py:*)
+  - Bash(mkdir:*)
   - Read
   - Write
   - WebSearch
@@ -24,22 +26,35 @@ Determine what was passed in `$ARGUMENTS`:
 
 - **If it contains a file path** (e.g., `./README.md`, `~/Desktop/CausalML/README.md`, `/path/to/spec.md`, `./paper.pdf`): use it as `--context` to tailor the paper search to that project.
 - **If it contains `--output <path>`** (e.g., `--output ~/research/cards`): use it as the base output directory. Paper cards and digests will be stored in `<path>/YYYY-MM-DD/`.
+- **If it contains `--threshold N`** (e.g., `--threshold 6`): pass it through to `arxiv_tool.py daily` to override the relevance threshold for deep analysis.
 - **If empty or no file path**: fall back to the default config interests and default output directory (`digests/`).
 
 Fetch papers:
 
 ```bash
-# With context file and custom output:
-python3 ./arxiv_tool.py daily --context <path> --output <output_path>
+# With context file, custom output, and threshold override:
+python3 ./arxiv_tool.py daily --context <path> --output <output_path> --threshold <N>
 
 # With context file (default output):
 python3 ./arxiv_tool.py daily --context <path>
+
+# With threshold override only:
+python3 ./arxiv_tool.py daily --threshold <N>
 
 # Without context (uses config.yaml interests):
 python3 ./arxiv_tool.py daily
 ```
 
-The CLI returns an `output_dir` field in its JSON output — this is the resolved date-specific directory (e.g., `digests/2026-03-02/`). Use this path for all subsequent file writes.
+The CLI returns a JSON object with pre-computed fields:
+- `output_dir` — date-specific directory for file writes (e.g., `digests/2026-03-02/`)
+- `podcast_dir` — podcast output directory (e.g., `podcasts/2026-03-02/`)
+- `date` — the YYYY-MM-DD date string
+- `relevance_threshold` — the threshold value
+- `tiers.top` — minimum score for Top Picks (= threshold)
+- `tiers.mid` — minimum score for Worth a Look (= threshold - 3)
+- `papers` — the fetched paper list
+
+Use these fields directly. Do NOT compute tier boundaries or podcast paths yourself.
 
 ## Phase 2: Understand the research context
 
@@ -68,9 +83,11 @@ For each fetched paper, score its relevance **1-10** against the research contex
 
 ## Phase 4: Present the digest to the user
 
+Use `tiers.top` and `tiers.mid` from the JSON output.
+
 Present papers grouped by relevance tier:
 
-### Top Picks (score >= 8)
+### Top Picks (score >= tiers.top)
 For each paper:
 - **[Title](arxiv_url)** — score/10
 - Authors | Category
@@ -78,17 +95,22 @@ For each paper:
 - **Key contribution**: What's novel
 - **Why it matters for your project**: Specific connection to the context
 
-### Worth a Look (score 5-7)
+### Worth a Look (score >= tiers.mid and < tiers.top)
 - **[Title](arxiv_url)** (score/10) — One-line summary. *Category*
 
-### Quick Scan (score < 5)
+### Quick Scan (score < tiers.mid)
 Compact table.
 
-## Phase 5: Deep analysis — launch parallel subagents
+## Phase 5: Deep analysis + podcast generation — launch parallel subagents
 
-For every paper that scored **>= 7**, launch one **paper-analyst** subagent per paper.
+For every paper that scored **>= tiers.top**, launch TWO subagents per paper:
+
+1. One **paper-analyst** subagent (deep analysis + LaTeX card)
+2. One **podcast-generator** subagent (NotebookLM podcast episode)
 
 **Launch ALL subagents simultaneously in a single message with multiple Agent tool calls.**
+
+### Paper analyst subagents
 
 For each paper, use:
 - `subagent_type: "paper-analyst"`
@@ -115,11 +137,36 @@ Write ALL output files to: <output_dir>
 Create this directory if it doesn't exist (mkdir -p).
 ```
 
+### Podcast generator subagents
+
+For each paper, use:
+- `subagent_type: "podcast-generator"`
+- `description: "Generate podcast: <short title>"`
+
+Use `podcast_dir` and `date` from the JSON output directly.
+
+Each subagent prompt should contain (include the listener context section only when a research context was provided in Phase 2):
+
+```
+Generate a podcast episode for this arXiv paper.
+
+## Paper details
+- Title: <title>
+- arXiv URL: <url>
+- Date: <date>
+
+## Output directory
+<podcast_dir>
+
+## Listener context
+<1-2 sentence summary of the listener's expertise from Phase 2, describing concepts/techniques they already understand — e.g., "multi-turn LLM evaluation, reward modeling, RLHF pipelines". The podcast should NOT explain these basics.>
+```
+
 ## Phase 6: Save digest and generate PDF report
 
 After all subagents complete, use the `output_dir` from Phase 1 for all paths:
 
-1. **Save the markdown digest**:
+1. **Save the markdown digest** (include a "Podcasts" section listing generated MP3 file paths for papers that got podcast episodes):
 ```bash
 # If --output was provided:
 python3 ./arxiv_tool.py save --date $(date +%Y-%m-%d) --output <output_base_path> --file /dev/stdin
@@ -136,15 +183,15 @@ python3 ./arxiv_tool.py save --date $(date +%Y-%m-%d) --file /dev/stdin
 
 3. **Report back** to the user with:
    - The digest summary (already shown in Phase 4)
-   - Paths to all generated files: paper cards (.tex/.pdf), digest (.md), digest PDF
-   - A count: "Analyzed X papers in depth, generated X LaTeX summary cards + 1 digest PDF"
+   - Paths to all generated files: paper cards (.tex/.pdf), digest (.md), digest PDF, podcast MP3s
+   - A count: "Analyzed X papers in depth, generated X LaTeX summary cards + X podcast episodes + 1 digest PDF"
    - The output directory path so the user knows where everything is
 
 ## Guidelines
 
 - Be technically precise — this is for a researcher
 - When a context file is provided, every "why it matters" must reference the specific project
-- If no papers score above 7, skip Phase 5 (no deep analysis needed) and just save the digest
+- If no papers score >= the threshold, skip Phase 5 (no deep analysis needed) and just save the digest
 - Always mention total counts: "X papers fetched, Y analyzed in depth"
 - Pass the FULL research context to each subagent — they need it to produce relevant analysis
 - All subagents for paper analysis should be launched IN PARALLEL in a single message

@@ -18,7 +18,12 @@
       "Bash(rm *.pdf)",
       "Bash(rm *.json)",
       "WebSearch",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Skill(arxiv-daily)",
+      "Skill(arxiv-search)",
+      "Skill(paper-analysis)",
+      "Bash(wc:*)",
+      "Bash(grep:*)"
     ]
   }
 }

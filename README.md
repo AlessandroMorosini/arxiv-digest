@@ -1,6 +1,6 @@
 # arxiv-digest
 
-A Claude Code-powered research assistant that fetches daily arXiv papers, scores them against your project, and generates standardized 1-page LaTeX summary cards.
+A Claude Code-powered research assistant that fetches daily arXiv papers, scores them against your project, and generates standardized 1-page LaTeX summary cards + short podcast episodes.
 
 You tell it what you're working on. It tells you what came out today that matters — and why.
 
@@ -41,38 +41,42 @@ The daily workflow is the main one. Here's what happens when you run it:
                           │
                           ▼
                 ┌─────────────────────┐
-                │  4. Show you the    │  Top Picks (≥8)
-                │     digest          │  Worth a Look (5-7)
-                └─────────┬───────────┘  Quick Scan (<5)
+                │  4. Show you the    │  Top Picks (≥ threshold)
+                │     digest          │  Worth a Look (threshold-3 .. threshold)
+                └─────────┬───────────┘  Quick Scan (rest)
                           │
                           ▼
-          ┌───────────────┴────────────────┐
-          │  For each paper scoring ≥ 7:   │
-          │  launch analysis subagent      │
-          └───────────────┬────────────────┘
+          ┌───────────────┴──────────────────────┐
+          │  For each Top Pick, launch in        │
+          │  parallel:                           │
+          │  • paper-analyst subagent            │
+          │  • podcast-generator subagent        │
+          └───────────────┬──────────────────────┘
+                          │
+              ┌───────────┴───────────┐
+              ▼                       ▼
+    ┌─────────────────┐     ┌─────────────────┐
+    │  Analysis       │     │  Podcast        │
+    │  subagent       │     │  subagent       │
+    │                 │     │                 │
+    │  • Fetch full   │     │  • NotebookLM   │
+    │    text         │     │    audio gen    │
+    │  • Deep analyze │     │  • Context-     │
+    │  • Write .tex   │     │    aware: skips │
+    │  • Compile PDF  │     │    basics you   │
+    └────────┬────────┘     │    already know │
+             │              └────────┬────────┘
+             ▼                       ▼
+      paper-card-*.pdf      podcast-*.mp3
                           │
                           ▼
-                ┌─────────────────┐
-                │  Analysis       │
-                │  subagent       │
-                │                 │
-                │  • Fetch full   │
-                │    text         │
-                │  • Deep analyze │
-                │  • Write .tex   │
-                │  • Compile PDF  │
-                └────────┬────────┘
-                         │
-                         ▼
-                  paper-card-*.pdf
-                         │
-                         ▼
                 ┌─────────────────────┐
                 │  6. Save digest     │  digests/2026-03-02/
                 │     + PDF report    │  ├── digest.md
                 └─────────────────────┘  ├── paper-card-*.tex/.pdf
                                          └── digest-report.pdf
-                                         (or --output <path>/2026-03-02/)
+                                         podcasts/2026-03-02/
+                                         └── podcast-*.mp3
 ```
 
 ## Setup
@@ -118,7 +122,7 @@ The recommended way to use this is through Claude Code slash commands. Open Clau
 /arxiv-daily
 ```
 
-This fetches today's papers, scores each one 1-10 against your config interests, shows you a ranked digest, and generates a 1-page LaTeX summary card for every paper that scored 7+. Everything lands in `digests/YYYY-MM-DD/`.
+This fetches today's papers, scores each one 1-10 against your config interests, shows you a ranked digest, and for every Top Pick generates a 1-page LaTeX summary card + a short podcast episode. Cards land in `digests/YYYY-MM-DD/`, podcasts in `podcasts/YYYY-MM-DD/`. The relevance threshold is configurable via `config.yaml` or `--threshold`.
 
 To score against a specific project instead of your general interests:
 
@@ -178,3 +182,9 @@ python3 arxiv_tool.py save --date 2026-03-02 --output ~/papers     # save digest
 - **Deduplication**: Papers are tracked in `.history.jsonl` by arxiv ID. You won't see the same paper twice across daily runs.
 - **Weekend handling**: Monday fetches look back 3 days automatically (arXiv doesn't publish on weekends).
 - **LaTeX is required for cards**: You need `xelatex` or `pdflatex` installed. On macOS: `brew install --cask mactex-no-gui`. The `.tex` files are always saved even if compilation fails.
+- **Podcasts require NotebookLM**: First-time setup needs a browser for Google auth:
+  ```bash
+  playwright install chromium
+  notebooklm login
+  ```
+  This opens a browser window to authenticate with your Google account. Credentials are stored locally. When a research context is provided, podcasts adapt to your expertise.

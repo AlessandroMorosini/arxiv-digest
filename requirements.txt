@@ -1,2 +1,3 @@
 arxiv>=2.1.0
+notebooklm-py[browser]
 pyyaml>=6.0

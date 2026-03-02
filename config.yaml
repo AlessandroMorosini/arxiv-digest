@@ -6,7 +6,7 @@ categories:
 
 max_papers: 100
 lookback_days: 1
-relevance_threshold: 5 # 1-10, papers below this are skipped
+relevance_threshold: 8 # 1-10, papers below this are skipped
 
 interests: |
   I work on efficient attention mechanisms and transformer architectures.

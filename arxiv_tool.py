@@ -105,6 +105,7 @@ def cmd_daily(args):
     config = load_config()
     categories = args.categories.split(",") if args.categories else config["categories"]
     max_papers = args.max or config.get("max_papers", 50)
+    threshold = args.threshold or config.get("relevance_threshold", 8)
     context_text, context_source = resolve_context(args, config)
     output_dir = resolve_output_dir(args, config)
 
@@ -157,14 +158,28 @@ def cmd_daily(args):
     append_history(papers)
 
     # Ensure output directory for today exists
-    today_output = output_dir / date.today().isoformat()
+    today_str = date.today().isoformat()
+    today_output = output_dir / today_str
     today_output.mkdir(parents=True, exist_ok=True)
+
+    # Compute podcast directory as sibling of base output dir
+    podcast_dir = output_dir.parent / "podcasts" / today_str
+
+    # Pre-compute tier boundaries
+    tiers = {
+        "top": threshold,
+        "mid": threshold - 3,
+    }
 
     # Output
     output = {
         "context": context_text,
         "context_source": context_source,
         "output_dir": str(today_output),
+        "podcast_dir": str(podcast_dir),
+        "date": today_str,
+        "relevance_threshold": threshold,
+        "tiers": tiers,
         "papers": papers,
     }
     print(json.dumps(output, indent=2))
@@ -303,6 +318,7 @@ def main():
     p_daily.add_argument("--max", type=int, help="Max papers to fetch")
     p_daily.add_argument("--context", type=str, help="Path to context file (README, spec, etc.)")
     p_daily.add_argument("--output", type=str, help="Base output directory (default: digests/)")
+    p_daily.add_argument("--threshold", type=int, help="Relevance threshold for deep analysis (default: from config)")
     p_daily.set_defaults(func=cmd_daily)
 
     # search
