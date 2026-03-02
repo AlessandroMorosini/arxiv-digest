@@ -1,0 +1,18 @@
+categories:
+  - cs.AI
+  - cs.CL
+  - cs.LG
+  - stat.ML
+
+max_papers: 100
+lookback_days: 1
+relevance_threshold: 5 # 1-10, papers below this are skipped
+
+interests: |
+  I work on efficient attention mechanisms and transformer architectures.
+  Interested in: sparse attention, linear attention, long-context models...
+
+keywords:
+  - attention mechanism
+  - transformer efficiency
+  - long context
