@@ -1,7 +1,24 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(mkdir:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(xelatex:*)",
+      "Bash(pdflatex:*)",
+      "Bash(cd:*)",
+      "Bash(rm *.aux)",
+      "Bash(rm *.log)",
+      "Bash(rm *.out)",
+      "Bash(rm *.synctex.gz)",
+      "Bash(rm *.html)",
+      "Bash(rm *.tex)",
+      "Bash(rm *.md)",
+      "Bash(rm *.pdf)",
+      "Bash(rm *.json)",
+      "WebSearch",
+      "WebFetch(domain:github.com)"
     ]
   }
 }
