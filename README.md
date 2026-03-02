@@ -1,0 +1,180 @@
+# arxiv-digest
+
+A Claude Code-powered research assistant that fetches daily arXiv papers, scores them against your project, and generates standardized 1-page LaTeX summary cards.
+
+You tell it what you're working on. It tells you what came out today that matters — and why.
+
+## How it works
+
+There are three commands you can run inside Claude Code. Each one is a multi-phase workflow that orchestrates Python scripts and parallel subagents.
+
+```
+/arxiv-daily [context_file] [--output path]     Fetch today's papers, score, analyze the best ones
+/arxiv-search [context] "query"                 Search arXiv for a specific topic
+/paper-analysis <paper> [--output path]         Deep-dive on one or more specific papers
+```
+
+The daily workflow is the main one. Here's what happens when you run it:
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│  /arxiv-daily ./my-project/README.md                                │
+└──────────────────────────┬──────────────────────────────────────────┘
+                           │
+                           ▼
+                ┌─────────────────────┐
+                │  1. Fetch papers    │  arxiv_tool.py daily --context ...
+                │     from arXiv API  │  → cache/2026-03-02.json
+                └─────────┬───────────┘
+                          │
+                          ▼
+                ┌─────────────────────┐
+                │  2. Read your       │  Understand your research project
+                │     context file    │  so scoring is project-specific
+                └─────────┬───────────┘
+                          │
+                          ▼
+                ┌─────────────────────┐
+                │  3. Score & rank    │  Each paper gets 1-10
+                │     every paper     │  based on relevance to your work
+                └─────────┬───────────┘
+                          │
+                          ▼
+                ┌─────────────────────┐
+                │  4. Show you the    │  Top Picks (≥8)
+                │     digest          │  Worth a Look (5-7)
+                └─────────┬───────────┘  Quick Scan (<5)
+                          │
+                          ▼
+          ┌───────────────┴────────────────┐
+          │  For each paper scoring ≥ 7:   │
+          │  launch analysis subagent      │
+          └───────────────┬────────────────┘
+                          │
+                          ▼
+                ┌─────────────────┐
+                │  Analysis       │
+                │  subagent       │
+                │                 │
+                │  • Fetch full   │
+                │    text         │
+                │  • Deep analyze │
+                │  • Write .tex   │
+                │  • Compile PDF  │
+                └────────┬────────┘
+                         │
+                         ▼
+                  paper-card-*.pdf
+                         │
+                         ▼
+                ┌─────────────────────┐
+                │  6. Save digest     │  digests/2026-03-02/
+                │     + PDF report    │  ├── digest.md
+                └─────────────────────┘  ├── paper-card-*.tex/.pdf
+                                         └── digest-report.pdf
+                                         (or --output <path>/2026-03-02/)
+```
+
+## Setup
+
+**Install dependencies:**
+
+```bash
+cd arxiv-digest
+pip install -r requirements.txt
+```
+
+**Configure your interests:**
+
+Edit `config.yaml` to set your arXiv categories, keywords, and a description of what you're working on:
+
+```yaml
+categories:
+  - cs.AI
+  - cs.CL
+  - cs.LG
+  - stat.ML
+
+max_papers: 100
+lookback_days: 1
+
+interests: |
+  I work on efficient attention mechanisms and transformer architectures.
+  Interested in: sparse attention, linear attention, long-context models...
+
+keywords:
+  - attention mechanism
+  - transformer efficiency
+  - long context
+```
+
+`interests` and `keywords` are your **default scoring context** — they're used when you run `/arxiv-daily` or `/arxiv-search` with no context file. If you pass one (e.g., `/arxiv-daily ./my-project/README.md`), that file takes over and these fields are ignored.
+
+## Usage
+
+The recommended way to use this is through Claude Code slash commands. Open Claude Code in the `arxiv-digest` directory. The main command is:
+
+```
+/arxiv-daily
+```
+
+This fetches today's papers, scores each one 1-10 against your config interests, shows you a ranked digest, and generates a 1-page LaTeX summary card for every paper that scored 7+. Everything lands in `digests/YYYY-MM-DD/`.
+
+To score against a specific project instead of your general interests:
+
+```
+/arxiv-daily ./path/to/your/project/details
+```
+
+To send output to a custom directory (paper cards and digests will go into `<path>/YYYY-MM-DD/`):
+
+```
+/arxiv-daily --output ~/research/paper-cards
+/arxiv-daily ./my-project/README.md --output ~/Dropbox/papers
+```
+
+For example:
+
+```
+/arxiv-daily ~/Desktop/my-thesis/notes.tek
+```
+
+You can also search arXiv for a specific topic with `/arxiv-search`:
+
+```
+/arxiv-search "transformer scaling laws"
+```
+
+## The LaTeX summary cards
+
+Every paper card follows an identical template, defined in [`.claude/commands/paper-analysis.md`](.claude/commands/paper-analysis.md). This makes them scannable and easy to collect over time.
+
+The current template follows the structure:
+
+1. **Header** — title, authors, year, venue, URL, code repo
+2. **Contribution** — 2-3 sentences on what's novel and what gap it fills
+3. **Method** — 2-4 sentences on the approach
+4. **Core Equation(s)** — 1-3 key equations with variable annotations (or "N/A" for empirical papers)
+5. **Relevance to My Project** — 2-3 bullets, specific and actionable
+6. **Limitations** — 2-3 bullets, both acknowledged and apparent
+
+Hard 1-page limit. Cards are compiled to PDF with `xelatex` (falls back to `pdflatex`).
+
+## The Python CLI
+
+`arxiv_tool.py` can also be used standalone. It outputs JSON — the Claude commands are what add scoring, analysis, and LaTeX generation on top.
+
+```bash
+python3 arxiv_tool.py daily                                        # fetch today's papers from your configured categories
+python3 arxiv_tool.py daily --context ./README.md                  # use this file as scoring context instead of config interests
+python3 arxiv_tool.py daily --output ~/research/cards              # store results in ~/research/cards/YYYY-MM-DD/
+python3 arxiv_tool.py search "attention" --max 20                  # search arXiv by query, return up to 20 results
+python3 arxiv_tool.py history --last 7                             # show papers fetched in the last 7 days
+python3 arxiv_tool.py save --date 2026-03-02 --output ~/papers     # save digest to a custom directory
+```
+
+## Notes
+
+- **Deduplication**: Papers are tracked in `.history.jsonl` by arxiv ID. You won't see the same paper twice across daily runs.
+- **Weekend handling**: Monday fetches look back 3 days automatically (arXiv doesn't publish on weekends).
+- **LaTeX is required for cards**: You need `xelatex` or `pdflatex` installed. On macOS: `brew install --cask mactex-no-gui`. The `.tex` files are always saved even if compilation fails.
