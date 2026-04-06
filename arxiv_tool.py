@@ -119,37 +119,51 @@ def cmd_daily(args):
     elif weekday == 6:  # Sunday — cover Fri+Sat
         lookback = max(lookback, 3)
 
-    end_date = datetime.utcnow()
-    start_date = end_date - timedelta(days=lookback)
-
-    # Query by category only — arXiv's submittedDate query filter is
-    # unreliable. Instead, fetch recent papers sorted by date and
-    # filter client-side by the lookback window.
-    cat_query = " OR ".join(f"cat:{cat}" for cat in categories)
-    full_query = cat_query
-
-    client = arxiv.Client(page_size=100, delay_seconds=3.0, num_retries=3)
-    search = arxiv.Search(
-        query=full_query,
-        max_results=max_papers,
-        sort_by=arxiv.SortCriterion.SubmittedDate,
-        sort_order=arxiv.SortOrder.Descending,
-    )
+    cutoff_date = (datetime.utcnow() - timedelta(days=lookback)).date()
 
     seen_ids = load_history()
-    papers = []
-    local_seen = set()
 
-    for result in client.results(search):
-        short_id = result.get_short_id()
-        base_id = short_id.split("v")[0]  # strip version
-        if base_id in seen_ids or base_id in local_seen:
-            continue
-        # Only include papers published within the lookback window
-        if result.published.date() < start_date.date():
-            continue
-        local_seen.add(base_id)
-        papers.append(paper_to_dict(result))
+    if getattr(args, "from_file", None):
+        # Read pre-fetched papers (e.g. from WebFetch + parse_arxiv_feed.py)
+        with open(args.from_file) as f:
+            raw = json.load(f)
+        papers = []
+        local_seen = set()
+        for p in raw:
+            base_id = p["arxiv_id"].split("v")[0]
+            if base_id in seen_ids or base_id in local_seen:
+                continue
+            if p.get("published", "") < cutoff_date.isoformat():
+                continue
+            local_seen.add(base_id)
+            papers.append(p)
+    else:
+        # Query by category only — arXiv's submittedDate query filter is
+        # unreliable. Instead, fetch recent papers sorted by date and
+        # filter client-side by the lookback window.
+        cat_query = " OR ".join(f"cat:{cat}" for cat in categories)
+        full_query = cat_query
+
+        client = arxiv.Client(page_size=100, delay_seconds=3.0, num_retries=3)
+        search = arxiv.Search(
+            query=full_query,
+            max_results=max_papers,
+            sort_by=arxiv.SortCriterion.SubmittedDate,
+            sort_order=arxiv.SortOrder.Descending,
+        )
+
+        papers = []
+        local_seen = set()
+
+        for result in client.results(search):
+            short_id = result.get_short_id()
+            base_id = short_id.split("v")[0]  # strip version
+            if base_id in seen_ids or base_id in local_seen:
+                continue
+            if result.published.date() < cutoff_date:
+                continue
+            local_seen.add(base_id)
+            papers.append(paper_to_dict(result))
 
     # Cache results
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
@@ -336,6 +350,7 @@ def main():
     p_daily.add_argument("--context", type=str, help="Path to context file (README, spec, etc.)")
     p_daily.add_argument("--output", type=str, help="Base output directory (default: digests/)")
     p_daily.add_argument("--threshold", type=int, help="Relevance threshold for deep analysis (default: from config)")
+    p_daily.add_argument("--from-file", type=str, dest="from_file", help="Read pre-fetched papers from JSON file instead of querying the API")
     p_daily.set_defaults(func=cmd_daily)
 
     # search
