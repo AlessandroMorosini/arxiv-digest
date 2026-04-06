@@ -122,9 +122,9 @@ def cmd_daily(args):
     end_date = datetime.utcnow()
     start_date = end_date - timedelta(days=lookback)
 
-    # Query by category only (no date filter) — arXiv's submittedDate
-    # filter is unreliable with the API. Instead, fetch recent papers
-    # sorted by date and let dedup + max_papers handle the scope.
+    # Query by category only — arXiv's submittedDate query filter is
+    # unreliable. Instead, fetch recent papers sorted by date and
+    # filter client-side by the lookback window.
     cat_query = " OR ".join(f"cat:{cat}" for cat in categories)
     full_query = cat_query
 
@@ -145,6 +145,9 @@ def cmd_daily(args):
         base_id = short_id.split("v")[0]  # strip version
         if base_id in seen_ids or base_id in local_seen:
             continue
+        # Only include papers published within the lookback window
+        if result.published.date() < start_date.date():
+            continue
         local_seen.add(base_id)
         papers.append(paper_to_dict(result))
 
@@ -156,6 +159,20 @@ def cmd_daily(args):
 
     # Update history
     append_history(papers)
+
+    # If no new papers found, fall back to the most recent non-empty cache
+    if not papers:
+        cache_files = sorted(CACHE_DIR.glob("*.json"), reverse=True)
+        for cf in cache_files:
+            if cf == cache_file:
+                continue
+            with open(cf) as f:
+                cached = json.load(f)
+            if cached:
+                papers = cached
+                cache_file = cf
+                print(f"# No new papers today — using most recent cache: {cf.name} ({len(papers)} papers)", file=sys.stderr)
+                break
 
     # Ensure output directory for today exists
     today_str = date.today().isoformat()

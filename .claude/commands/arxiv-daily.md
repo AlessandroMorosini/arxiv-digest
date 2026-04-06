@@ -103,10 +103,8 @@ Compact table.
 
 ## Phase 5: Deep analysis + podcast generation — launch parallel subagents
 
-For every paper that scored **>= tiers.top**, launch TWO subagents per paper:
-
-1. One **paper-analyst** subagent (deep analysis + LaTeX card)
-2. One **podcast-generator** subagent (NotebookLM podcast episode)
+For every paper that scored **>= tiers.top**, launch a **paper-analyst** subagent.
+For every paper that scored **>= 9**, ALSO launch a **podcast-generator** subagent.
 
 **Launch ALL subagents simultaneously in a single message with multiple Agent tool calls.**
 

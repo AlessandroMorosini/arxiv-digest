@@ -4,7 +4,7 @@ categories:
   - cs.LG
   - stat.ML
 
-max_papers: 100
+max_papers: 500
 lookback_days: 1
 relevance_threshold: 8 # 1-10, papers below this are skipped
 
