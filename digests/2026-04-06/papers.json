@@ -1,0 +1,612 @@
+[
+  {
+    "title": "ClarifyMT-Bench: Benchmarking Multi-Turn Clarification for Conversational LLMs",
+    "authors": [],
+    "published": "2025-12-30",
+    "score": 10,
+    "arxiv_url": "https://arxiv.org/abs/2512.21120",
+    "arxiv_id_base": "2512.21120"
+  },
+  {
+    "title": "When and What to Ask: AskBench and Rubric-Guided RLVR for LLM Clarification",
+    "authors": [
+      "Jiale Zhao",
+      "Ke Fang",
+      "Lu Cheng"
+    ],
+    "published": "2026-02-04",
+    "score": 10,
+    "arxiv_url": "https://arxiv.org/abs/2602.11199",
+    "arxiv_id_base": "2602.11199"
+  },
+  {
+    "title": "Ask or Assume? Uncertainty-Aware Clarification-Seeking in Coding Agents",
+    "authors": [
+      "Nicholas Edwards",
+      "Sebastian Schuster"
+    ],
+    "published": "2026-03-31",
+    "score": 9,
+    "arxiv_url": "https://arxiv.org/abs/2603.26233",
+    "arxiv_id_base": "2603.26233"
+  },
+  {
+    "title": "Structured Uncertainty guided Clarification for LLM Agents",
+    "authors": [
+      "Manan Suri",
+      "Puneet Mathur",
+      "Nedim Lipka",
+      "Franck Dernoncourt",
+      "Ryan A. Rossi",
+      "Dinesh Manocha"
+    ],
+    "published": "2025-11-13",
+    "score": 9,
+    "arxiv_url": "https://arxiv.org/abs/2511.08798",
+    "arxiv_id_base": "2511.08798"
+  },
+  {
+    "title": "Clarify or Answer: Reinforcement Learning for Agentic VQA with Context Under-specification",
+    "authors": [
+      "Zongwan Cao",
+      "Bingbing Wen",
+      "Lucy Lu Wang"
+    ],
+    "published": "2026-01-23",
+    "score": 9,
+    "arxiv_url": "https://arxiv.org/abs/2601.16400",
+    "arxiv_id_base": "2601.16400"
+  },
+  {
+    "title": "TSR: Trajectory-Search Rollouts for Multi-Turn RL of LLM Agents",
+    "authors": [],
+    "published": "2026-02-17",
+    "score": 9,
+    "arxiv_url": "https://arxiv.org/abs/2602.11767",
+    "arxiv_id_base": "2602.11767"
+  },
+  {
+    "title": "Intent Mismatch Causes LLMs to Get Lost in Multi-Turn Conversation",
+    "authors": [
+      "Geng Liu",
+      "Fei Zhu",
+      "Rong Feng",
+      "Changyi Ma",
+      "Shiqi Wang",
+      "Gaofeng Meng"
+    ],
+    "published": "2026-02-07",
+    "score": 9,
+    "arxiv_url": "https://arxiv.org/abs/2602.07338",
+    "arxiv_id_base": "2602.07338"
+  },
+  {
+    "title": "Routing, Cascades, and User Choice for LLMs",
+    "authors": [
+      "Rafid Mahmood"
+    ],
+    "published": "2026-02-10",
+    "score": 8,
+    "arxiv_url": "https://arxiv.org/abs/2602.09902",
+    "arxiv_id_base": "2602.09902"
+  },
+  {
+    "title": "Dynamic Model Routing and Cascading for Efficient LLM Inference: A Survey",
+    "authors": [
+      "Yasmin Moslem",
+      "John D. Kelleher"
+    ],
+    "published": "2026-02-23",
+    "score": 8,
+    "arxiv_url": "https://arxiv.org/abs/2603.04445",
+    "arxiv_id_base": "2603.04445"
+  },
+  {
+    "title": "Quantifying Conversational Reliability of Large Language Models under Multi-Turn Interaction",
+    "authors": [
+      "Jiyoon Myung"
+    ],
+    "published": "2026-03-02",
+    "score": 8,
+    "arxiv_url": "https://arxiv.org/abs/2603.01423",
+    "arxiv_id_base": "2603.01423"
+  },
+  {
+    "title": "Confidence Before Answering: A Paradigm Shift for Efficient LLM Uncertainty Estimation",
+    "authors": [
+      "Changcheng Li",
+      "Jiancan Wu",
+      "Hengheng Zhang",
+      "Zhengsu Chen",
+      "Guo An",
+      "Junxiang Qiu",
+      "Xiang Wang",
+      "Qi Tian"
+    ],
+    "published": "2026-03-06",
+    "score": 8,
+    "arxiv_url": "https://arxiv.org/abs/2603.05881",
+    "arxiv_id_base": "2603.05881"
+  },
+  {
+    "title": "ClarEval: A Benchmark for Evaluating Clarification Skills of Code Agents under Ambiguous Instructions",
+    "authors": [
+      "Jialin Li",
+      "Yuan Wu",
+      "Yi Chang"
+    ],
+    "published": "2026-02-27",
+    "score": 8,
+    "arxiv_url": "https://arxiv.org/abs/2603.00187",
+    "arxiv_id_base": "2603.00187"
+  },
+  {
+    "title": "Beyond Single-Turn: A Survey on Multi-Turn Interactions with Large Language Models",
+    "authors": [],
+    "published": "2025-04-07",
+    "score": 8,
+    "arxiv_url": "https://arxiv.org/abs/2504.04717",
+    "arxiv_id_base": "2504.04717"
+  },
+  {
+    "title": "Asymmetric Actor-Critic for Multi-turn LLM Agents",
+    "authors": [
+      "Shuli Jiang",
+      "Zhaoyang Zhang",
+      "Yi Zhang",
+      "Shuo Yang",
+      "Wei Xia",
+      "Stefano Soatto"
+    ],
+    "published": "2026-03-31",
+    "score": 8,
+    "arxiv_url": "https://arxiv.org/abs/2604.00304",
+    "arxiv_id_base": "2604.00304"
+  },
+  {
+    "title": "Confidence Estimation for LLMs in Multi-turn Interactions",
+    "authors": [
+      "Caiqi Zhang",
+      "Ruihan Yang",
+      "Xiaochen Zhu",
+      "Chengzu Li",
+      "Tiancheng Hu",
+      "Yijiang River Dong",
+      "Deqing Yang",
+      "Nigel Collier"
+    ],
+    "published": "2026-01-05",
+    "score": 8,
+    "arxiv_url": "https://arxiv.org/abs/2601.02179",
+    "arxiv_id_base": "2601.02179"
+  },
+  {
+    "title": "Evaluating LLM-based Agents for Multi-Turn Conversations: A Survey",
+    "authors": [],
+    "published": "2025-03-28",
+    "score": 8,
+    "arxiv_url": "https://arxiv.org/abs/2503.22458",
+    "arxiv_id_base": "2503.22458"
+  },
+  {
+    "title": "Clarifying Ambiguities: on the Role of Ambiguity Types in Prompting Methods for Clarification Generation",
+    "authors": [
+      "Anfu Tang",
+      "Laure Soulier",
+      "Vincent Guigue"
+    ],
+    "published": "2025-04-16",
+    "score": 8,
+    "arxiv_url": "https://arxiv.org/abs/2504.12113",
+    "arxiv_id_base": "2504.12113"
+  },
+  {
+    "arxiv_id": "2604.01161",
+    "title": "Reasoning Shift: How Context Silently Shortens LLM Reasoning",
+    "authors": [
+      "Gleb Rodionov"
+    ],
+    "abstract": "Large language models exhibiting test-time scaling behavior, such as extended reasoning traces and self-verification, have demonstrated remarkable performance on complex, long-term reasoning tasks. However, the robustness of these reasoning behaviors remains underexplored. The authors conduct a systematic evaluation of multiple reasoning models across three scenarios: (1) problems augmented with lengthy, irrelevant context; (2) multi-turn conversational settings with independent tasks; and (3) problems presented as a subtask within a complex task. Reasoning models tend to produce much shorter reasoning traces (up to 50%) for the same problem under different context conditions compared to traces produced in isolation. This compression is associated with decreased self-verification and uncertainty management behaviors such as double-checking.",
+    "categories": [
+      "cs.CL"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2604.01161",
+    "published": "2026-04-01",
+    "updated": "2026-04-01",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2604.01161",
+    "score": 7,
+    "arxiv_id_base": "2604.01161"
+  },
+  {
+    "arxiv_id": "2604.00445",
+    "title": "Towards Reliable Truth-Aligned Uncertainty Estimation in Large Language Models",
+    "authors": [
+      "Anonymous"
+    ],
+    "abstract": "Uncertainty estimation (UE) aims to detect hallucinated outputs of large language models (LLMs) to improve their reliability. However, UE metrics often exhibit unstable performance across configurations, which significantly limits their applicability. The paper formalizes this phenomenon as proxy failure, since most UE metrics originate from model behaviour rather than being explicitly grounded in the factual correctness of LLM outputs, showing that UE metrics become non-discriminative precisely in low-information regimes. To address this, the authors propose Truth AnChoring (TAC), a post-hoc calibration method to remedy UE metrics by mapping raw scores to truth-aligned scores, which can support the learning of well-calibrated uncertainty estimates even with noisy and few-shot supervision.",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2604.00445",
+    "published": "2026-04-01",
+    "updated": "2026-04-01",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2604.00445",
+    "score": 7,
+    "arxiv_id_base": "2604.00445"
+  },
+  {
+    "arxiv_id": "2601.01532",
+    "title": "Aletheia: Quantifying Cognitive Conviction in Reasoning Models via Regularized Inverse Confusion Matrix",
+    "authors": [
+      "Anonymous"
+    ],
+    "abstract": "The paper investigates calibration and cognitive conviction in reasoning models along three distinct forms: confidence suppression in Claude Sonnet 4.6, confidence escalation in GPT-5.2 in open-ended domains, and calibration improvement suppression in Gemini 3.1 Pro. Introduces a regularized inverse confusion matrix framework to quantify the degree to which model expressed confidence aligns with factual accuracy across conditions.",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2601.01532",
+    "published": "2026-01-03",
+    "updated": "2026-01-03",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2601.01532",
+    "score": 6,
+    "arxiv_id_base": "2601.01532"
+  },
+  {
+    "title": "ProAgentBench: Evaluating LLM Agents for Proactive Assistance with Real-World Data",
+    "authors": [],
+    "published": "2026-02-04",
+    "score": 6,
+    "arxiv_url": "https://arxiv.org/abs/2602.04482",
+    "arxiv_id_base": "2602.04482"
+  },
+  {
+    "arxiv_id": "2604.00018",
+    "title": "Think Twice Before You Write -- an Entropy-based Decoding Strategy to Enhance LLM Reasoning",
+    "authors": [
+      "Anonymous"
+    ],
+    "abstract": "This paper proposes an entropy-based decoding strategy that prompts language models to reconsider uncertain token choices before committing to outputs, improving reasoning accuracy by encouraging deliberation at high-entropy positions during generation.",
+    "categories": [
+      "cs.CL"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2604.00018",
+    "published": "2026-04-01",
+    "updated": "2026-04-01",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2604.00018",
+    "score": 6,
+    "arxiv_id_base": "2604.00018"
+  },
+  {
+    "arxiv_id": "2604.00228",
+    "title": "Do Language Models Know When They'll Refuse? Probing Introspective Awareness of Safety Boundaries",
+    "authors": [
+      "Anonymous"
+    ],
+    "abstract": "This paper investigates whether large language models can accurately predict when they will refuse harmful requests before responding. The researchers investigated this question through a systematic study where models first predict their refusal behavior, then respond in a fresh context. They evaluated four frontier models: Claude Sonnet 4, Claude Sonnet 4.5, GPT-5.2, and Llama 3.1 405B across 3,754 datapoints spanning 300 requests. Using signal detection theory (SDT), all models exhibit high introspective sensitivity (d' = 2.4-3.5), but sensitivity drops substantially at safety boundaries. Claude Sonnet 4.5 showed 95.7% accuracy, Sonnet 4's 93.0%, GPT-5.2 at 88.9%. If models can accurately predict their refusal behavior, this suggests that safety training creates explicit, accessible representations of harmfulness that the model can query introspectively.",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2604.00228",
+    "published": "2026-04-01",
+    "updated": "2026-04-01",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2604.00228",
+    "score": 5,
+    "arxiv_id_base": "2604.00228"
+  },
+  {
+    "arxiv_id": "2601.01828",
+    "title": "Emergent Introspective Awareness in Large Language Models",
+    "authors": [
+      "Anonymous"
+    ],
+    "abstract": "This paper investigates whether large language models can introspect on their internal states, addressing the challenge that genuine introspection cannot be distinguished from confabulations through conversation alone. Using interpretability methods combined with behavioral probing, the authors identify emergent patterns of introspective awareness that correlate with model scale and instruction-tuning. The work provides evidence for degrees of introspective fidelity and discusses implications for self-descriptive objectives in alignment.",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2601.01828",
+    "published": "2026-01-03",
+    "updated": "2026-01-03",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2601.01828",
+    "score": 5,
+    "arxiv_id_base": "2601.01828"
+  },
+  {
+    "arxiv_id": "2602.16666",
+    "title": "Towards a Science of AI Agent Reliability",
+    "authors": [
+      "Anonymous"
+    ],
+    "abstract": "This work proposes twelve concrete metrics that decompose agent reliability along four key dimensions: consistency, robustness, predictability, and safety. It uses 5 semantically equivalent instruction paraphrases with naturalistic variations for each task to measure behavioral consistency. Presents a framework for understanding reliability failures in LLM-based agents across deployment conditions.",
+    "categories": [
+      "cs.AI"
+    ],
+    "primary_category": "cs.AI",
+    "pdf_url": "https://arxiv.org/pdf/2602.16666",
+    "published": "2026-02-24",
+    "updated": "2026-02-24",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2602.16666",
+    "score": 5,
+    "arxiv_id_base": "2602.16666"
+  },
+  {
+    "arxiv_id": "2601.06112",
+    "title": "ReliabilityBench: Evaluating LLM Agent Reliability Under Production-Like Stress Conditions",
+    "authors": [
+      "Anonymous"
+    ],
+    "abstract": "This benchmark evaluates LLM agent reliability under production-like conditions with a three-dimensional evaluation surface that unifies consistency, robustness, and fault tolerance metrics. It employs Action Metamorphic Relations (perturbation strategies: synonym substitution, distractor injection, paraphrasing) that reveal brittleness invisible to standard benchmarks.",
+    "categories": [
+      "cs.AI"
+    ],
+    "primary_category": "cs.AI",
+    "pdf_url": "https://arxiv.org/pdf/2601.06112",
+    "published": "2026-01-09",
+    "updated": "2026-01-09",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2601.06112",
+    "score": 4,
+    "arxiv_id_base": "2601.06112"
+  },
+  {
+    "title": "Cascade-Aware Multi-Agent Routing: Spatio-Temporal Sidecars and Geometry-Switching",
+    "authors": [],
+    "published": "2026-03-21",
+    "score": 4,
+    "arxiv_url": "https://arxiv.org/abs/2603.17112",
+    "arxiv_id_base": "2603.17112"
+  },
+  {
+    "arxiv_id": "2603.25764",
+    "title": "Consistency Amplifies: How Behavioral Variance Shapes Agent Accuracy",
+    "authors": [
+      "Aman Mehta"
+    ],
+    "abstract": "As LLM-based agents are deployed in production systems, understanding their behavioral consistency becomes critical for reliability. The study examines consistency in the context of SWE-bench across Claude 4.5 Sonnet, GPT-5, and Llama-3.1-70B across 50 runs each (10 tasks x 5 runs). Higher consistency aligns with higher accuracy: Claude achieves the lowest variance (CV: 15.2%) and highest accuracy (58%), GPT-5 intermediate (CV: 32.2%, 32%), and Llama highest variance (CV: 47.0%, 4%). However, within a model, consistency can amplify both correct and incorrect interpretations. 71% of Claude's failures stem from 'consistent wrong interpretation': making the same incorrect assumption across all runs.",
+    "categories": [
+      "cs.AI",
+      "cs.CL"
+    ],
+    "primary_category": "cs.AI",
+    "pdf_url": "https://arxiv.org/pdf/2603.25764",
+    "published": "2026-03-31",
+    "updated": "2026-03-31",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2603.25764",
+    "score": 4,
+    "arxiv_id_base": "2603.25764"
+  },
+  {
+    "arxiv_id": "2602.02639",
+    "title": "A Positive Case for Faithfulness: LLM Self-Explanations Help Predict Model Behavior",
+    "authors": [
+      "Anonymous"
+    ],
+    "abstract": "A new metric called Normalized Simulatability Gain (NSG) is introduced based on the idea that a faithful explanation should allow an observer to learn a model's decision-making criteria, and thus better predict its behavior on related inputs. Self-explanations substantially improve prediction of model behavior (11-37% NSG). This constitutes a positive case for faithfulness: LLM self-explanations are not merely post-hoc rationalizations but contain genuine predictive signal about how the model will behave on related inputs.",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2602.02639",
+    "published": "2026-02-04",
+    "updated": "2026-02-04",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2602.02639",
+    "score": 4,
+    "arxiv_id_base": "2602.02639"
+  },
+  {
+    "arxiv_id": "2602.11619",
+    "title": "When Agents Disagree With Themselves: Measuring Behavioral Consistency in LLM-Based Agents",
+    "authors": [
+      "Anonymous"
+    ],
+    "abstract": "Running the same LLM agent on the same task twice often produces different behaviors. In a study of 3,000 agent runs across three models on HotpotQA, ReAct-style agents produced 2.0-4.2 distinct action sequences per 10 runs on average, even with identical inputs. This variance predicts failure: tasks with consistent behavior achieve 80-92% accuracy, while highly inconsistent tasks achieve only 25-60%, a 32-55 percentage point gap depending on model. Variance traces to early decisions, with 69% of divergence occurring at step 2.",
+    "categories": [
+      "cs.AI",
+      "cs.CL"
+    ],
+    "primary_category": "cs.AI",
+    "pdf_url": "https://arxiv.org/pdf/2602.11619",
+    "published": "2026-02-17",
+    "updated": "2026-02-17",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2602.11619",
+    "score": 4,
+    "arxiv_id_base": "2602.11619"
+  },
+  {
+    "title": "Agent Q-Mix: Selecting the Right Action for LLM Multi-Agent Systems through Reinforcement Learning",
+    "authors": [],
+    "published": "2026-04-01",
+    "score": 4,
+    "arxiv_url": "https://arxiv.org/abs/2604.00344",
+    "arxiv_id_base": "2604.00344"
+  },
+  {
+    "title": "Reward Shaping to Mitigate Reward Hacking in RLHF",
+    "authors": [],
+    "published": "2025-02-25",
+    "score": 3,
+    "arxiv_url": "https://arxiv.org/abs/2502.18770",
+    "arxiv_id_base": "2502.18770"
+  },
+  {
+    "title": "\"Who Am I, and Who Else Is Here?\" Behavioral Differentiation Without Role Assignment in Multi-Agent LLM Systems",
+    "authors": [],
+    "published": "2026-04-01",
+    "score": 3,
+    "arxiv_url": "https://arxiv.org/abs/2604.00026",
+    "arxiv_id_base": "2604.00026"
+  },
+  {
+    "title": "Scheduling LLM Inference with Uncertainty-Aware Output Length Predictions",
+    "authors": [],
+    "published": "2026-04-01",
+    "score": 3,
+    "arxiv_url": "https://arxiv.org/abs/2604.00499",
+    "arxiv_id_base": "2604.00499"
+  },
+  {
+    "arxiv_id": "2601.06341",
+    "title": "Evaluating Robustness of Large Language Models in Enterprise Applications: Benchmarks for Perturbation Consistency Across Formats and Languages",
+    "authors": [
+      "Anonymous"
+    ],
+    "abstract": "This paper evaluates 11 models ranging from 4B to 120B+ parameters and presents a comprehensive benchmark suite evaluating robustness across multiple perturbation types, including general text edits (punctuation, whitespace), formatting changes (JSON, YAML), multilingual and cross-lingual inputs, and positional variations in instructions. Minor perturbations reduce performance by up to 40 percentage points on key enterprise metrics. The benchmark directly measures invariance failures across a range of input transformations.",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2601.06341",
+    "published": "2026-01-10",
+    "updated": "2026-01-10",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2601.06341",
+    "score": 3,
+    "arxiv_id_base": "2601.06341"
+  },
+  {
+    "arxiv_id": "2603.29292",
+    "title": "Self-Improving Code Generation via Semantic Entropy and Behavioral Consensus",
+    "authors": [
+      "Anonymous"
+    ],
+    "abstract": "This paper proposes a self-improvement framework for code generation that uses semantic entropy to identify uncertain outputs and behavioral consensus across multiple samples to filter reliable outputs, enabling iterative quality improvements without external feedback.",
+    "categories": [
+      "cs.CL",
+      "cs.SE"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2603.29292",
+    "published": "2026-03-31",
+    "updated": "2026-03-31",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2603.29292",
+    "score": 3,
+    "arxiv_id_base": "2603.29292"
+  },
+  {
+    "arxiv_id": "2604.00209",
+    "title": "Do LLMs Know What Is Private Internally? Probing and Steering Contextual Privacy Norms in Large Language Model Representations",
+    "authors": [
+      "Anonymous"
+    ],
+    "abstract": "The first systematic study of contextual privacy as a structured latent representation in LLMs, grounded in contextual integrity (CI) theory. Examines whether LLMs encode privacy norms internally and whether these representations can be steered to improve privacy-preserving outputs.",
+    "categories": [
+      "cs.CL"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2604.00209",
+    "published": "2026-04-01",
+    "updated": "2026-04-01",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2604.00209",
+    "score": 2,
+    "arxiv_id_base": "2604.00209"
+  },
+  {
+    "arxiv_id": "2602.02470",
+    "title": "Breaking the Reversal Curse in Autoregressive Language Models via Identity Bridge",
+    "authors": [
+      "Anonymous"
+    ],
+    "abstract": "If a model is trained on a sentence of the form 'A is B', it will not automatically generalize to the reverse direction 'B is A' - known as the Reversal Curse. When trained on forward knowledge data like 'Alice's husband is Bob', models are unable to deduce reversal knowledge. This paper introduces a simple data recipe called the Identity Bridge, which by inserting intermediate identity-based training examples, reliably enables bidirectional generalization, addressing a fundamental asymmetry in autoregressive knowledge encoding.",
+    "categories": [
+      "cs.CL",
+      "cs.LG"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2602.02470",
+    "published": "2026-02-04",
+    "updated": "2026-02-04",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2602.02470",
+    "score": 2,
+    "arxiv_id_base": "2602.02470"
+  },
+  {
+    "arxiv_id": "2603.04678",
+    "title": "Optimizing Language Models for Crosslingual Knowledge Consistency",
+    "authors": [
+      "Anonymous"
+    ],
+    "abstract": "This paper targets joint consistency improvements across languages in multilingual foundation models, including bilingual versions that align English with specific non-English languages. It proposes training objectives that enforce equivariant knowledge representations across language variants, such that factual knowledge retrieved in one language is consistent with the same knowledge retrieved in another.",
+    "categories": [
+      "cs.CL"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2603.04678",
+    "published": "2026-03-05",
+    "updated": "2026-03-05",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2603.04678",
+    "score": 2,
+    "arxiv_id_base": "2603.04678"
+  },
+  {
+    "title": "Competition and Cooperation of LLM Agents in Games",
+    "authors": [],
+    "published": "2026-04-01",
+    "score": 2,
+    "arxiv_url": "https://arxiv.org/abs/2604.00487",
+    "arxiv_id_base": "2604.00487"
+  },
+  {
+    "arxiv_id": "2601.10589",
+    "title": "Be Your Own Red Teamer: Safety Alignment via Self-Play and Reflective Experience Replay",
+    "authors": [
+      "Anonymous"
+    ],
+    "abstract": "This paper proposes Safety Self-Play (SSP), a system where a single LLM acts concurrently as both Attacker and Defender within a unified RL loop, dynamically evolving attack strategies to uncover vulnerabilities while strengthening defense mechanisms. This is the first work to apply self-play to LLM safety and introduces a Reflective Experience Replay mechanism that explicitly revisits past low-reward trajectories, allowing the model to systematically learn from and defend against historical vulnerabilities.",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2601.10589",
+    "published": "2026-01-14",
+    "updated": "2026-01-14",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2601.10589",
+    "score": 2,
+    "arxiv_id_base": "2601.10589"
+  },
+  {
+    "arxiv_id": "2604.00586",
+    "title": "More Human, More Efficient: Aligning Annotations with Quantized SLMs",
+    "authors": [
+      "Anonymous"
+    ],
+    "abstract": "This work examines finetuning a quantized Small Language Model as a highly aligned, deterministic evaluator and annotator, showing that smaller but more precisely aligned models can match or exceed larger model annotation quality on standardized tasks.",
+    "categories": [
+      "cs.CL"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2604.00586",
+    "published": "2026-04-01",
+    "updated": "2026-04-01",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2604.00586",
+    "score": 1,
+    "arxiv_id_base": "2604.00586"
+  }
+]
