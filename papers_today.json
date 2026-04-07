@@ -1,0 +1,316 @@
+[
+  {
+    "arxiv_id": "2601.04767",
+    "title": "AT2PO: Agentic Turn-based Policy Optimization via Tree Search",
+    "authors": [
+      "Zefang Zong",
+      "Dingwei Chen",
+      "Yang Li",
+      "Qi Yi",
+      "Bo Zhou",
+      "Chengming Li",
+      "Bo Qian",
+      "Peng Chen",
+      "Jie Jiang"
+    ],
+    "abstract": "We present AT2PO (Agentic Turn-based Policy Optimization), a unified framework for multi-turn agentic RL that addresses three core challenges: limited exploration diversity, sparse credit assignment, and misaligned policy optimization. AT2PO introduces a turn-level tree structure that jointly enables Entropy-Guided Tree Expansion for strategic exploration and Turn-wise Credit Assignment for fine-grained reward propagation from sparse outcomes. The framework proposes Agentic Turn-based Policy Optimization, a turn-level learning objective that aligns policy updates with the natural decision granularity of agentic interactions. Experiments across seven benchmarks demonstrate consistent improvements over the state-of-the-art baseline by up to 1.84 percentage points in average.",
+    "categories": [
+      "cs.AI",
+      "cs.CL"
+    ],
+    "primary_category": "cs.AI",
+    "pdf_url": "https://arxiv.org/pdf/2601.04767",
+    "published": "2026-04-07",
+    "updated": "2026-01-08",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2601.04767"
+  },
+  {
+    "arxiv_id": "2601.15703",
+    "title": "Agentic Uncertainty Quantification",
+    "authors": [
+      "Jiaxin Zhang",
+      "Prafulla Kumar Choubey",
+      "Shubham Toshniwal",
+      "Caiming Xiong",
+      "Chien-Sheng Wu"
+    ],
+    "abstract": "AI agents' reliability is severely hampered by the 'Spiral of Hallucination,' where early epistemic errors propagate irreversibly. Existing methods face a dilemma: uncertainty quantification (UQ) methods typically act as passive sensors, only diagnosing risks without addressing them, while self-reflection mechanisms suffer from continuous or aimless corrections. We propose a unified Dual-Process Agentic UQ (AUQ) framework that transforms verbalized uncertainty into active, bi-directional control signals. The architecture comprises two complementary mechanisms: System 1 (Uncertainty-Aware Memory, UAM), which implicitly propagates verbalized confidence and semantic explanations to prevent blind decision-making; and System 2 (Uncertainty-Aware Reflection, UAR), which utilizes these explanations as rational cues to trigger targeted inference-time resolution only when necessary. Extensive experiments on closed-loop benchmarks and open-ended deep research tasks demonstrate that our training-free approach achieves superior performance and trajectory-level calibration.",
+    "categories": [
+      "cs.AI",
+      "cs.CL",
+      "cs.LG"
+    ],
+    "primary_category": "cs.AI",
+    "pdf_url": "https://arxiv.org/pdf/2601.15703",
+    "published": "2026-04-07",
+    "updated": "2026-01-22",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2601.15703"
+  },
+  {
+    "arxiv_id": "2601.07767",
+    "title": "Are LLM Decisions Faithful to Verbal Confidence?",
+    "authors": [
+      "Ori Shapira",
+      "Ori Ernst",
+      "Ran Levy",
+      "Ido Dagan"
+    ],
+    "abstract": "We study the alignment between LLMs' verbalized confidence and their downstream decisions. While models can often accurately verbalize their uncertainty, they fail to use this information to minimize loss. The analysis reveals a fundamental limitation: the disconnect between information and action. Models detect speaker unreliability in explicit confidence ratings but fail to exploit this information to guide efficient clarification behavior, instead exhibiting suboptimal strategies like partner-blind over-clarification and question-averse guessing under uncertainty. We find that verbalized confidence is not faithfully translated into decision-level behavior, with implications for LLM deployment in uncertainty-sensitive settings.",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2601.07767",
+    "published": "2026-04-07",
+    "updated": "2026-01-13",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2601.07767"
+  },
+  {
+    "arxiv_id": "2601.21469",
+    "title": "Adaptive Confidence Gating in Multi-Agent Collaboration for Efficient and Optimized Code Generation",
+    "authors": [
+      "Wan Ding",
+      "Min-Yen Kan"
+    ],
+    "abstract": "We propose Adaptive Confidence Gating (ACG), a mechanism for routing in multi-agent code generation systems. ACG uses model confidence scores to gate whether a task proceeds to the next agent or is routed back for revision. The approach introduces a confidence-based stopping criterion that avoids unnecessary computations by routing only uncertain outputs to downstream agents. Experiments on code generation benchmarks show that ACG reduces cost while maintaining or improving accuracy compared to static multi-agent pipelines.",
+    "categories": [
+      "cs.AI",
+      "cs.SE",
+      "cs.CL"
+    ],
+    "primary_category": "cs.AI",
+    "pdf_url": "https://arxiv.org/pdf/2601.21469",
+    "published": "2026-04-07",
+    "updated": "2026-01-28",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2601.21469"
+  },
+  {
+    "arxiv_id": "2602.19225",
+    "title": "Proximity-Based Multi-Turn Optimization: Practical Credit Assignment for LLM Agent Training",
+    "authors": [
+      "Yifei Zhao",
+      "Zhengdong Lu",
+      "Hang Li"
+    ],
+    "abstract": "We propose ProxMO, a robust framework for multi-turn credit assignment that integrates global context at both episode and step levels. Unlike GRPO's context-agnostic normalization, ProxMO incorporates global context via two lightweight mechanisms: success-rate-aware modulation dynamically adapts gradient intensity based on episode-level difficulty, while proximity-based soft aggregation derives baselines through continuous semantic weighting at the step level. ProxMO consistently outperforms baselines across LLM scales and task types, with pronounced gains in long-horizon tasks that demand precise credit assignment. Notably, trained small models (1.5B/7B) match or even surpass leading closed-source LLMs like GPT-4o and Gemini-2.5-Pro.",
+    "categories": [
+      "cs.AI",
+      "cs.LG",
+      "cs.CL"
+    ],
+    "primary_category": "cs.AI",
+    "pdf_url": "https://arxiv.org/pdf/2602.19225",
+    "published": "2026-04-07",
+    "updated": "2026-02-22",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2602.19225"
+  },
+  {
+    "arxiv_id": "2603.04814",
+    "title": "Beyond the Context Window: A Cost-Performance Analysis of Fact-Based Memory vs. Long-Context LLMs for Persistent Agents",
+    "authors": [
+      "Fabian Retkowski",
+      "Alexander Waibel"
+    ],
+    "abstract": "We compare fact-based memory systems (built on the Mem0 framework) against long-context LLM inference on three memory-centric benchmarks: LongMemEval, LoCoMo, and PersonaMemv2. Our analysis reveals that fact-based memory systems significantly outperform long-context approaches on multi-session tasks requiring structured recall, while long-context models remain competitive for single-session tasks. We provide a cost-performance analysis that guides when each approach is appropriate for persistent agents requiring memory over many interactions.",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2603.04814",
+    "published": "2026-04-07",
+    "updated": "2026-03-07",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2603.04814"
+  },
+  {
+    "arxiv_id": "2603.06616",
+    "title": "RACER: Risk-Aware Calibrated Efficient Routing for Large Language Models",
+    "authors": [
+      "Ming-Hua Tsai",
+      "Phat Tran"
+    ],
+    "abstract": "Efficiently routing queries to the optimal large language model (LLM) is crucial for optimizing the cost-performance trade-off in multi-model systems. We formulate LLM routing as the alpha-VOR problem to minimize expected set size while controlling the misrouting risk, and propose RACER, extending base routers to output model sets that can be subsequently aggregated for improved output. RACER constructs nested model sets via augmented scoring and utilizes finite-sample concentration bounds to calibrate a threshold that allows for both variable set sizes and abstention. We theoretically prove that RACER achieves rigorous distribution-free risk control on unseen test data in a post-hoc and model-agnostic manner. Extensive experiments verify the theoretical guarantees and demonstrate that RACER consistently enhances downstream accuracy across a wide range of benchmarks.",
+    "categories": [
+      "cs.LG",
+      "cs.AI",
+      "cs.CL"
+    ],
+    "primary_category": "cs.LG",
+    "pdf_url": "https://arxiv.org/pdf/2603.06616",
+    "published": "2026-04-07",
+    "updated": "2026-03-07",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2603.06616"
+  },
+  {
+    "arxiv_id": "2603.09453",
+    "title": "Variational Routing: A Scalable Bayesian Framework for Calibrated Mixture-of-Experts Transformers",
+    "authors": [
+      "Albus Yizhuo Li",
+      "Matthew Wicker"
+    ],
+    "abstract": "We introduce Variational Mixture-of-Experts Routing (VMoER), a structured Bayesian approach for modelling uncertainty in MoE layers. VMoER confines Bayesian inference to the expert-selection stage, instantiated using amortised variational inference over routing logits and a temperature parameter for stochastic expert selection. Across tested foundation models, VMoER improves routing stability under noise by 38%, reduces calibration error by 94%, and increases out-of-distribution AUROC by 12%, while incurring less than 1% additional FLOPs.",
+    "categories": [
+      "cs.LG",
+      "cs.AI"
+    ],
+    "primary_category": "cs.LG",
+    "pdf_url": "https://arxiv.org/pdf/2603.09453",
+    "published": "2026-04-07",
+    "updated": "2026-03-15",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2603.09453"
+  },
+  {
+    "arxiv_id": "2603.18815",
+    "title": "ProRL Agent: Rollout-as-a-Service for RL Training of Multi-Turn LLM Agents",
+    "authors": [
+      "NVIDIA NeMo Team"
+    ],
+    "abstract": "ProRL Agent is a scalable infrastructure for RL training of multi-turn LLM agents that adopts a 'Rollout-as-a-Service' philosophy. By decoupling agentic rollout orchestration from the training loop, ProRL addresses the inherent resource conflicts between I/O-intensive environment interactions and GPU-intensive policy updates. The system operates as a standalone HTTP service managing the full rollout lifecycle through an asynchronous three-stage assembly line: INIT workers configure sandbox environments, RUN workers drive the multi-turn agent loop and collect trajectories, and EVAL workers score results to produce reward signals. A Qwen3-8B model trained with ProRL Agent improved from 9.6% to 18.0% on SWE-bench, while a 14B model moved from 15.4% to 23.6%.",
+    "categories": [
+      "cs.AI",
+      "cs.LG"
+    ],
+    "primary_category": "cs.AI",
+    "pdf_url": "https://arxiv.org/pdf/2603.18815",
+    "published": "2026-04-07",
+    "updated": "2026-03-21",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2603.18815"
+  },
+  {
+    "arxiv_id": "2603.21278",
+    "title": "Conversation Tree Architecture: A Structured Framework for Context-Aware Multi-Branch LLM Conversations",
+    "authors": [
+      "Pranav Hemanth",
+      "Sampriti Saha"
+    ],
+    "abstract": "We introduce the Conversation Tree Architecture (CTA), a hierarchical framework that organizes LLM conversations as trees of discrete, context-isolated nodes. All context currently accumulates in a single unbounded window, causing topically distinct threads to bleed into one another and progressively degrade response quality \u2014 a failure mode we term 'logical context poisoning.' Each CTA node maintains its own local context window; structured mechanisms govern context flow between parent and child nodes. We additionally introduce volatile nodes, transient branches whose local context must be selectively merged upward or permanently discarded before purging. Empirical evaluation demonstrates significant reductions in context pollution and improvements in coherence for long multi-topic conversations.",
+    "categories": [
+      "cs.CL",
+      "cs.AI"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2603.21278",
+    "published": "2026-04-07",
+    "updated": "2026-03-22",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2603.21278"
+  },
+  {
+    "arxiv_id": "2603.30035",
+    "title": "Reward-Based Online LLM Routing via NeuralUCB",
+    "authors": [
+      "Ming-Hua Tsai",
+      "Phat Tran"
+    ],
+    "abstract": "We investigate the use of NeuralUCB for cost-aware LLM routing, casting routing as a contextual bandit problem and adopting NeuralUCB to learn a non-linear routing policy. The method improves average utility and the cost-quality tradeoff over time, consistently outperforming random and min-cost baselines in utility reward, while achieving substantially lower inference cost compared with the max-quality reference while maintaining competitive reward. Evaluated on RouterBench under a simulated online setting.",
+    "categories": [
+      "cs.LG",
+      "cs.AI"
+    ],
+    "primary_category": "cs.LG",
+    "pdf_url": "https://arxiv.org/pdf/2603.30035",
+    "published": "2026-04-07",
+    "updated": "2026-03-31",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2603.30035"
+  },
+  {
+    "arxiv_id": "2604.02339",
+    "title": "SIEVE: Sample-Efficient Parametric Learning from Natural Language",
+    "authors": [
+      "Edward Vendrow",
+      "Ruihan Wu",
+      "Kai-Wei Chang",
+      "Jieyu Zhao"
+    ],
+    "abstract": "We introduce SIEVE (Sample-Efficient Iterative EVolution from Explanations), a framework for learning from natural language specifications. SIEVE iteratively refines a parametric model by generating candidate hypotheses from natural language feedback, evaluating them against labeled examples, and selecting the best hypotheses for further refinement. This allows learning structured representations from underspecified natural language at much lower sample cost than standard fine-tuning.",
+    "categories": [
+      "cs.CL",
+      "cs.LG"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2604.02339",
+    "published": "2026-04-07",
+    "updated": "2026-04-02",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2604.02339"
+  },
+  {
+    "arxiv_id": "2604.02666",
+    "title": "Let's Have a Conversation: Designing and Evaluating LLM Agents for Interactive Optimization",
+    "authors": [
+      "Joshua Drossman",
+      "Alexandre Jacquillat",
+      "Sebastien Martin"
+    ],
+    "abstract": "Large language models can empower decision-makers with optimization capabilities through interactive optimization agents. We propose a scalable and replicable methodology for evaluating optimization agents through conversations, building LLM-powered decision agents that role-play diverse stakeholders, each governed by an internal utility function but communicating like a real decision-maker. We generate thousands of conversations in a school scheduling case study, addressing the fundamental challenge that it is fundamentally harder to evaluate a conversation-based interaction than traditional one-shot approaches.",
+    "categories": [
+      "cs.AI",
+      "cs.CL",
+      "math.OC"
+    ],
+    "primary_category": "cs.AI",
+    "pdf_url": "https://arxiv.org/pdf/2604.02666",
+    "published": "2026-04-07",
+    "updated": "2026-04-03",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2604.02666"
+  },
+  {
+    "arxiv_id": "2604.02910",
+    "title": "Analysis of Optimality of Large Language Models on Planning Problems",
+    "authors": [
+      "Bernd Bohnet",
+      "Azade Nova",
+      "Francesco Croce",
+      "Oriol Vinyals",
+      "Olivier Bachem"
+    ],
+    "abstract": "We examine the degree to which frontier LLMs reason optimally on planning problems, focusing on the Blocksworld domain and the formally equivalent Path-Star (P*) graph. Reasoning-enhanced LLMs significantly outperform traditional satisficing planners (e.g., LAMA) in complex, multi-goal configurations. Although classical search algorithms hit a wall as the search space expands, LLMs track theoretical optimality limits with near-perfect precision, even when domain-specific semantic hints are stripped away. For successful plans, models maintain a stable ratio of approximately 47 tokens per optimal plan step, supporting the hypothesis that the model performs systematic serial algorithmic simulation. GPT-5 achieves parity with classical planning algorithms on IPC benchmarks.",
+    "categories": [
+      "cs.AI",
+      "cs.LG",
+      "cs.CL"
+    ],
+    "primary_category": "cs.AI",
+    "pdf_url": "https://arxiv.org/pdf/2604.02910",
+    "published": "2026-04-07",
+    "updated": "2026-04-03",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2604.02910"
+  },
+  {
+    "arxiv_id": "2604.03074",
+    "title": "Speaker-Reasoner: Scaling Interaction Turns and Reasoning Patterns for Timestamped Speaker-Attributed ASR",
+    "authors": [
+      "Ruoyu Wang",
+      "Wangjin Lee",
+      "Zheng Liang",
+      "Xiaoyi Qin",
+      "Luyao Cheng",
+      "Yafeng Chen"
+    ],
+    "abstract": "We propose Speaker-Reasoner, an end-to-end Speech LLM with agentic multi-turn temporal reasoning. Instead of single-pass inference, the model iteratively analyzes global audio structure, autonomously predicts temporal boundaries, and performs fine-grained segment analysis, jointly modeling speaker identity, gender, timestamps, and transcription. The model grows an interaction turn chain with structured reasoning patterns, progressively refining its predictions across turns.",
+    "categories": [
+      "cs.CL",
+      "cs.SD",
+      "eess.AS"
+    ],
+    "primary_category": "cs.CL",
+    "pdf_url": "https://arxiv.org/pdf/2604.03074",
+    "published": "2026-04-07",
+    "updated": "2026-04-03",
+    "comment": null,
+    "arxiv_url": "https://arxiv.org/abs/2604.03074"
+  }
+]
