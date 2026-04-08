@@ -207,7 +207,7 @@ The daily digest can run fully unattended. `daily_arxiv.sh` wraps the entire pip
 
 ```bash
 # One-off run with a research context:
-./daily_arxiv.sh contexts/forward_lm.md
+./daily_arxiv.sh contexts/attention.md
 
 # Run with default interests from config.yaml:
 ./daily_arxiv.sh
@@ -224,7 +224,7 @@ To run every day at 1am:
 ```bash
 crontab -e
 # Add this line:
-0 1 * * * /path/to/arxiv-digest/daily_arxiv.sh contexts/forward_lm.md
+0 1 * * * /path/to/arxiv-digest/daily_arxiv.sh contexts/attention.md
 ```
 
 You can run multiple cron jobs with different context files to track separate research threads.
