@@ -177,6 +177,15 @@ python3 arxiv_tool.py history --last 7                             # show papers
 python3 arxiv_tool.py save --date 2026-03-02 --output ~/papers     # save digest to a custom directory
 ```
 
+## Project files
+
+| File | Description |
+|------|-------------|
+| `arxiv_tool.py` | Main CLI — fetches, caches, scores, and manages arXiv papers via the `arxiv` Python library |
+| `podcast_paper.py` | Generates a short podcast episode for a paper using NotebookLM |
+| `config.yaml` | Your arXiv categories, keywords, and research interests |
+| `daily_arxiv.sh` | Shell wrapper that runs the daily digest headlessly via `claude -p` |
+
 ## Notes
 
 - **Deduplication**: Papers are tracked in `.history.jsonl` by arxiv ID. You won't see the same paper twice across daily runs.
@@ -188,3 +197,33 @@ python3 arxiv_tool.py save --date 2026-03-02 --output ~/papers     # save digest
   notebooklm login
   ```
   This opens a browser window to authenticate with your Google account. Credentials are stored locally. When a research context is provided, podcasts adapt to your expertise.
+
+## Automation
+
+The daily digest can run unattended overnight.
+
+1. **12:55am** — Mac wakes via `pmset`
+2. **1:00am** — `daily_arxiv.sh` runs headlessly via cron
+3. Claude Code fetches papers, scores them, generates paper cards + digest + podcasts
+4. Output saves to `output/YYYY-MM-DD/`, logs to `~/logs/arxiv-digest-YYYY-MM-DD.log`
+5. Mac sleeps again on its own
+
+**Cron job** (runs daily at 1am):
+```
+0 1 * * * /path/to/arxiv-digest/daily_arxiv.sh contexts/forward_lm.md
+```
+
+**Auto-wake** (wakes Mac at 12:55am):
+```bash
+sudo pmset repeat wakeorpoweron MTWRFSU 00:55:00
+```
+
+**Managing:**
+```bash
+crontab -l                    # view cron job
+crontab -e                    # edit cron job
+pmset -g sched                # view wake schedule
+sudo pmset repeat cancel      # remove auto-wake
+```
+
+To use a different research context, edit the cron job and swap the context file path.
