@@ -185,6 +185,7 @@ python3 arxiv_tool.py save --date 2026-03-02 --output ~/papers     # save digest
 | `podcast_paper.py` | Generates a short podcast episode for a paper using NotebookLM |
 | `config.yaml` | Your arXiv categories, keywords, and research interests |
 | `daily_arxiv.sh` | Shell wrapper that runs the daily digest headlessly via `claude -p` |
+| `web.py` | Local Flask app for browsing digests, paper scores, and podcasts in a browser |
 
 ## Notes
 

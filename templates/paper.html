@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}{{ paper.title }} — arxiv-digest{% endblock %}
+{% block content %}
+<div class="breadcrumb">
+    <a href="/">Digests</a><span class="sep">/</span><a href="/digest/{{ date }}">{{ date }}</a><span class="sep">/</span>Paper
+</div>
+
+<div class="paper-detail">
+    {% if paper.score is not none %}
+    <span class="score-badge {% if paper.score >= 8 %}score-high{% elif paper.score >= 5 %}score-mid{% else %}score-low{% endif %}" style="margin-bottom: 0.5rem; display: inline-block;">{{ paper.score }}/10</span>
+    {% endif %}
+
+    <h1 class="detail-title">{{ paper.title }}</h1>
+
+    <div class="detail-meta">
+        {% if paper.primary_category %}<span class="cat">{{ paper.primary_category }}</span>{% endif %}
+        {% if paper.categories | length > 1 %}
+            {% for c in paper.categories[1:] %} <span class="cat">{{ c }}</span>{% endfor %}
+        {% endif %}
+        {% if paper.published %}<br>Published: {{ paper.published }}{% endif %}
+        {% if paper.comment %} &middot; {{ paper.comment }}{% endif %}
+        {% if paper.authors %}
+        <br>{{ paper.authors | join(', ') }}
+        {% endif %}
+    </div>
+
+    <div class="paper-actions" style="margin-bottom: 1.5rem;">
+        {% if paper.paper_card %}
+        <a href="/files/{{ paper.paper_card }}" class="btn" target="_blank">Paper Card PDF</a>
+        {% endif %}
+        {% if paper.podcast %}
+        <button class="btn podcast-btn">Play Podcast</button>
+        {% endif %}
+        {% if paper.arxiv_url %}
+        <a href="{{ paper.arxiv_url }}" class="btn" target="_blank" rel="noopener">arXiv</a>
+        {% endif %}
+        {% if paper.pdf_url %}
+        <a href="{{ paper.pdf_url }}" class="btn" target="_blank" rel="noopener">PDF</a>
+        {% endif %}
+    </div>
+
+    {% if paper.podcast %}
+    <div class="audio-player hidden">
+        <audio controls preload="none" src="/files/{{ paper.podcast }}" style="width:100%"></audio>
+    </div>
+    {% endif %}
+
+    {% if paper.summary %}
+    <div class="detail-summary">
+        <h3>Digest Notes</h3>
+        <ul>
+            {% for line in paper.summary %}
+            <li>{{ line }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    {% if paper.abstract %}
+    <div class="detail-abstract">
+        <h3>Abstract</h3>
+        <p>{{ paper.abstract }}</p>
+    </div>
+    {% endif %}
+
+    {% if paper.paper_card %}
+    <div class="pdf-embed">
+        <h3>Paper Card</h3>
+        <object data="/files/{{ paper.paper_card }}" type="application/pdf">
+            <p>PDF preview not supported. <a href="/files/{{ paper.paper_card }}" target="_blank">Download PDF</a></p>
+        </object>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

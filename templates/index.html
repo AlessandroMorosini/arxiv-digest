@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}arxiv-digest{% endblock %}
+{% block content %}
+<h1 class="page-title">Digests</h1>
+<p class="page-subtitle">Browse daily arXiv paper digests</p>
+
+{% if summaries %}
+    {% for s in summaries %}
+    <a href="/digest/{{ s.date }}" class="date-card">
+        <div class="date-card-date">{{ s.date }}</div>
+        {% if s.context %}
+        <div class="date-card-context">{{ s.context }}</div>
+        {% endif %}
+        <div class="date-card-stats">
+            <span class="stat-pill">{{ s.fetched }} fetched</span>
+            {% if s.top_count %}
+            <span class="stat-pill"><span class="dot dot-green"></span> {{ s.top_count }} top pick{{ 's' if s.top_count != 1 }}</span>
+            {% endif %}
+            {% if s.mid_count %}
+            <span class="stat-pill"><span class="dot dot-amber"></span> {{ s.mid_count }} worth a look</span>
+            {% endif %}
+            {% if s.has_podcasts %}
+            <span class="stat-pill">&#9835; podcasts</span>
+            {% endif %}
+            {% if s.has_cards %}
+            <span class="stat-pill">&#128196; paper cards</span>
+            {% endif %}
+        </div>
+    </a>
+    {% endfor %}
+{% else %}
+    <div class="empty-state">
+        <p>No digests yet. Run an arxiv-digest command to get started.</p>
+    </div>
+{% endif %}
+{% endblock %}

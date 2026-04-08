@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}{{ date }} — arxiv-digest{% endblock %}
+{% block content %}
+<div class="breadcrumb">
+    <a href="/">Digests</a><span class="sep">/</span>{{ date }}
+</div>
+
+<h1 class="page-title">{{ date }}</h1>
+{% if header.context %}
+<p class="page-subtitle">{{ header.context }}</p>
+{% endif %}
+
+{% if top %}
+<h2 class="section-title">Top Picks (score &ge; 8)</h2>
+{% for p in top %}
+<div class="paper-card">
+    <div class="paper-card-header">
+        <span class="score-badge score-high">{{ p.score }}/10</span>
+        <div class="paper-title">
+            <a href="/paper/{{ date }}/{{ p.arxiv_id }}">{{ p.title }}</a>
+        </div>
+    </div>
+    <div class="paper-meta">
+        {% if p.primary_category %}<span class="cat">{{ p.primary_category }}</span> &middot; {% endif %}
+        {% if p.authors %}{{ p.authors[:3] | join(', ') }}{% if p.authors | length > 3 %} et al.{% endif %}{% endif %}
+    </div>
+    {% if p.summary %}
+    <ul class="paper-summary">
+        {% for line in p.summary %}
+        <li>{{ line }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="paper-actions">
+        <a href="/paper/{{ date }}/{{ p.arxiv_id }}" class="btn">Details</a>
+        {% if p.paper_card %}
+        <a href="/files/{{ p.paper_card }}" class="btn" target="_blank">Paper Card</a>
+        {% endif %}
+        {% if p.podcast %}
+        <button class="btn podcast-btn">Podcast</button>
+        {% endif %}
+        <a href="{{ p.arxiv_url }}" class="btn" target="_blank" rel="noopener">arXiv</a>
+    </div>
+    {% if p.podcast %}
+    <div class="audio-player hidden">
+        <audio controls preload="none" src="/files/{{ p.podcast }}"></audio>
+    </div>
+    {% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+{% if mid %}
+<h2 class="section-title">Worth a Look (5-7)</h2>
+{% for p in mid %}
+<div class="paper-card compact">
+    <div class="paper-card-header">
+        <span class="score-badge score-mid">{{ p.score }}/10</span>
+        <div class="paper-title">
+            <a href="/paper/{{ date }}/{{ p.arxiv_id }}">{{ p.title }}</a>
+        </div>
+    </div>
+    <div class="paper-meta">
+        {% if p.primary_category %}<span class="cat">{{ p.primary_category }}</span> &middot; {% endif %}
+        {% if p.authors %}{{ p.authors[:3] | join(', ') }}{% if p.authors | length > 3 %} et al.{% endif %}{% endif %}
+    </div>
+    {% if p.summary %}
+    <ul class="paper-summary">
+        {% for line in p.summary[:1] %}
+        <li>{{ line }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="paper-actions">
+        <a href="/paper/{{ date }}/{{ p.arxiv_id }}" class="btn">Details</a>
+        {% if p.paper_card %}
+        <a href="/files/{{ p.paper_card }}" class="btn" target="_blank">Paper Card</a>
+        {% endif %}
+        {% if p.podcast %}
+        <button class="btn podcast-btn">Podcast</button>
+        {% endif %}
+        <a href="{{ p.arxiv_url }}" class="btn" target="_blank" rel="noopener">arXiv</a>
+    </div>
+    {% if p.podcast %}
+    <div class="audio-player hidden">
+        <audio controls preload="none" src="/files/{{ p.podcast }}"></audio>
+    </div>
+    {% endif %}
+</div>
+{% endfor %}
+{% endif %}
+
+{% if low_count > 0 %}
+<h2 class="section-title">Quick Scan</h2>
+<p class="quick-scan">{{ low_count }} papers scored below 5 — not shown individually.</p>
+{% endif %}
+
+{% if not top and not mid %}
+<div class="empty-state">
+    <p>No scored papers found for this date.</p>
+</div>
+{% endif %}
+{% endblock %}

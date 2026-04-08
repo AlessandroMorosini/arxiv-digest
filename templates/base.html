@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}arxiv-digest{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/" class="logo">arxiv-digest</a>
+            <div class="nav-right">
+                <form action="/search" method="get" class="search-form">
+                    <input type="text" name="q" placeholder="Search papers..." value="{{ request.args.get('q', '') }}">
+                </form>
+                <button id="theme-toggle" aria-label="Toggle theme">&#9684;</button>
+            </div>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>arxiv-digest</p>
+    </footer>
+    <script>
+        const toggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        const stored = localStorage.getItem('theme');
+        if (stored) html.setAttribute('data-theme', stored);
+
+        toggle.addEventListener('click', () => {
+            const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+        });
+
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.podcast-btn');
+            if (!btn) return;
+            e.preventDefault();
+            const card = btn.closest('.paper-card, .paper-detail');
+            const player = card && card.querySelector('.audio-player');
+            if (player) {
+                player.classList.toggle('hidden');
+                if (!player.classList.contains('hidden')) {
+                    player.querySelector('audio').play();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

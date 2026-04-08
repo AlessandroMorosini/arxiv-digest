@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}{% if query %}Search: {{ query }}{% else %}Search{% endif %} — arxiv-digest{% endblock %}
+{% block content %}
+<h1 class="page-title">Search</h1>
+<p class="page-subtitle">Search paper titles and abstracts across all digests</p>
+
+{% if query and results %}
+<p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">
+    {{ results | length }} result{{ 's' if results | length != 1 }} for "{{ query }}"
+</p>
+{% for r in results %}
+<div class="search-result">
+    <div class="search-result-title">
+        <a href="/paper/{{ r.date }}/{{ r.arxiv_id }}">{{ r.title }}</a>
+    </div>
+    <div class="search-result-meta">
+        {{ r.date }}
+        {% if r.primary_category %} &middot; <span class="cat">{{ r.primary_category }}</span>{% endif %}
+        {% if r.score is not none %} &middot; <span class="score-badge {% if r.score >= 8 %}score-high{% elif r.score >= 5 %}score-mid{% else %}score-low{% endif %}" style="font-size:0.7rem;padding:0.1rem 0.4rem;">{{ r.score }}/10</span>{% endif %}
+    </div>
+    {% if r.abstract_snippet %}
+    <div class="search-result-snippet">{{ r.abstract_snippet }}</div>
+    {% endif %}
+</div>
+{% endfor %}
+{% elif query %}
+<div class="empty-state">
+    <p>No results for "{{ query }}"</p>
+</div>
+{% else %}
+<div class="empty-state">
+    <p>Enter a search term to find papers.</p>
+</div>
+{% endif %}
+{% endblock %}
