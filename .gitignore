@@ -16,5 +16,10 @@ podcasts/
 papers_today.json
 .history.jsonl
 
+# Artifacts
+=3.0
+*.bak
+output/
+
 # OS
 .DS_Store

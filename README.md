@@ -200,30 +200,49 @@ python3 arxiv_tool.py save --date 2026-03-02 --output ~/papers     # save digest
 
 ## Automation
 
-The daily digest can run unattended overnight.
+The daily digest can run fully unattended. `daily_arxiv.sh` wraps the entire pipeline into a single headless `claude -p` call — no human interaction needed.
 
-1. **12:55am** — Mac wakes via `pmset`
-2. **1:00am** — `daily_arxiv.sh` runs headlessly via cron
-3. Claude Code fetches papers, scores them, generates paper cards + digest + podcasts
-4. Output saves to `output/YYYY-MM-DD/`, logs to `~/logs/arxiv-digest-YYYY-MM-DD.log`
-5. Mac sleeps again on its own
+### Quick start
 
-**Cron job** (runs daily at 1am):
+```bash
+# One-off run with a research context:
+./daily_arxiv.sh contexts/forward_lm.md
+
+# Run with default interests from config.yaml:
+./daily_arxiv.sh
 ```
+
+The script checks prerequisites (Claude CLI, `arxiv` package, context file), runs the `/arxiv-daily` slash command headlessly, and writes everything to `digests/YYYY-MM-DD/` and `podcasts/YYYY-MM-DD/`. Logs go to `~/logs/arxiv-digest-YYYY-MM-DD.log`.
+
+If NotebookLM auth fails (common in headless mode), podcast generation is skipped gracefully — paper cards and the digest are still produced.
+
+### Scheduling with cron
+
+To run every day at 1am:
+
+```bash
+crontab -e
+# Add this line:
 0 1 * * * /path/to/arxiv-digest/daily_arxiv.sh contexts/forward_lm.md
 ```
 
-**Auto-wake** (wakes Mac at 12:55am):
+You can run multiple cron jobs with different context files to track separate research threads.
+
+### Auto-wake (macOS)
+
+If your Mac sleeps overnight, schedule a wake 5 minutes before the cron job:
+
 ```bash
 sudo pmset repeat wakeorpoweron MTWRFSU 00:55:00
 ```
 
-**Managing:**
+The Mac will sleep again on its own after the job finishes.
+
+### Managing
+
 ```bash
-crontab -l                    # view cron job
-crontab -e                    # edit cron job
+crontab -l                    # view cron jobs
+crontab -e                    # edit cron jobs
 pmset -g sched                # view wake schedule
 sudo pmset repeat cancel      # remove auto-wake
 ```
-
-To use a different research context, edit the cron job and swap the context file path.
