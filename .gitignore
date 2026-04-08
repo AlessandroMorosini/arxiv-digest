@@ -10,6 +10,7 @@ __pycache__/
 
 # Output data (local to each user)
 cache/
+contexts/
 digests/
 podcasts/
 papers_today.json
