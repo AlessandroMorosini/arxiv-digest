@@ -154,7 +154,7 @@ You can also search arXiv for a specific topic with `/arxiv-search`:
 
 ## The LaTeX summary cards
 
-Every paper card follows an identical template, defined in [`.claude/commands/paper-analysis.md`](.claude/commands/paper-analysis.md). This makes them scannable and easy to collect over time.
+Every paper card follows an identical template, defined in [`.claude/agents/paper-analyst.md`](.claude/agents/paper-analyst.md). This makes them scannable and easy to collect over time.
 
 The current template follows the structure:
 
