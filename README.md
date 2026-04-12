@@ -71,11 +71,10 @@ The daily workflow is the main one. Here's what happens when you run it:
                           │
                           ▼
                 ┌─────────────────────┐
-                │  6. Save digest     │  digests/2026-03-02/
+                │  6. Save digest     │  output/2026-03-02/
                 │     + PDF report    │  ├── digest.md
                 └─────────────────────┘  ├── paper-card-*.tex/.pdf
-                                         └── digest-report.pdf
-                                         podcasts/2026-03-02/
+                                         ├── digest-report.pdf
                                          └── podcast-*.mp3
 ```
 
@@ -89,6 +88,10 @@ pip install -r requirements.txt
 ```
 
 **Configure your interests:**
+
+```bash
+cp config.example.yaml config.yaml
+```
 
 Edit `config.yaml` to set your arXiv categories, keywords, and a description of what you're working on:
 
@@ -122,7 +125,7 @@ The recommended way to use this is through Claude Code slash commands. Open Clau
 /arxiv-daily
 ```
 
-This fetches today's papers, scores each one 1-10 against your config interests, shows you a ranked digest, and for every Top Pick generates a 1-page LaTeX summary card + a short podcast episode. Cards land in `digests/YYYY-MM-DD/`, podcasts in `podcasts/YYYY-MM-DD/`. The relevance threshold is configurable via `config.yaml` or `--threshold`.
+This fetches today's papers, scores each one 1-10 against your config interests, shows you a ranked digest, and for every Top Pick generates a 1-page LaTeX summary card + a short podcast episode. All output lands in `output/YYYY-MM-DD/`. The relevance threshold is configurable via `config.yaml` or `--threshold`.
 
 To score against a specific project instead of your general interests:
 
@@ -183,7 +186,7 @@ python3 arxiv_tool.py save --date 2026-03-02 --output ~/papers     # save digest
 |------|-------------|
 | `arxiv_tool.py` | Main CLI — fetches, caches, scores, and manages arXiv papers via the `arxiv` Python library |
 | `podcast_paper.py` | Generates a short podcast episode for a paper using NotebookLM |
-| `config.yaml` | Your arXiv categories, keywords, and research interests |
+| `config.example.yaml` | Template config — copy to `config.yaml` and fill in your interests |
 | `daily_arxiv.sh` | Shell wrapper that runs the daily digest headlessly via `claude -p` |
 | `web.py` | Local Flask app for browsing digests, paper scores, and podcasts in a browser |
 
@@ -213,7 +216,7 @@ The daily digest can run fully unattended. `daily_arxiv.sh` wraps the entire pip
 ./daily_arxiv.sh
 ```
 
-The script checks prerequisites (Claude CLI, `arxiv` package, context file), runs the `/arxiv-daily` slash command headlessly, and writes everything to `digests/YYYY-MM-DD/` and `podcasts/YYYY-MM-DD/`. Logs go to `~/logs/arxiv-digest-YYYY-MM-DD.log`.
+The script checks prerequisites (Claude CLI, `arxiv` package, context file), runs the `/arxiv-daily` slash command headlessly, and writes everything to `output/YYYY-MM-DD/`. Logs go to `~/logs/arxiv-digest-YYYY-MM-DD.log`.
 
 If NotebookLM auth fails (common in headless mode), podcast generation is skipped gracefully — paper cards and the digest are still produced.
 

@@ -9,17 +9,30 @@ __pycache__/
 *.synctex.gz
 
 # Output data (local to each user)
+output/
 cache/
 contexts/
-digests/
-podcasts/
 papers_today.json
 .history.jsonl
+
+# Legacy output directories (kept for existing data)
+digests/
+podcasts/
+
+# User config (tracked as config.example.yaml)
+config.yaml
+
+# Machine-specific Claude settings
+.claude/settings.local.json
+
+# Scratch scripts
+AUTOMATION.md
+extract_relevant.py
+parse_papers.py
 
 # Artifacts
 =3.0
 *.bak
-output/
 
 # OS
 .DS_Store

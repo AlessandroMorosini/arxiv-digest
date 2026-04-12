@@ -12,13 +12,25 @@ import yaml
 
 BASE_DIR = Path(__file__).parent.resolve()
 CONFIG_FILE = BASE_DIR / "config.yaml"
+CONFIG_EXAMPLE = BASE_DIR / "config.example.yaml"
 CACHE_DIR = BASE_DIR / "cache"
 HISTORY_FILE = BASE_DIR / ".history.jsonl"
 
 
 def load_config():
-    with open(CONFIG_FILE) as f:
-        return yaml.safe_load(f)
+    if CONFIG_FILE.exists():
+        with open(CONFIG_FILE) as f:
+            return yaml.safe_load(f)
+    if CONFIG_EXAMPLE.exists():
+        print(
+            "Warning: config.yaml not found, using config.example.yaml defaults. "
+            "Copy it to config.yaml to customize.",
+            file=sys.stderr,
+        )
+        with open(CONFIG_EXAMPLE) as f:
+            return yaml.safe_load(f)
+    print("Error: neither config.yaml nor config.example.yaml found.", file=sys.stderr)
+    sys.exit(1)
 
 
 def load_history():
@@ -64,6 +76,7 @@ def extract_pdf_text(path):
     """Extract text from a PDF file using pymupdf if available, else pdfminer."""
     try:
         import fitz  # pymupdf
+
         doc = fitz.open(str(path))
         text = "\n\n".join(page.get_text() for page in doc)
         doc.close()
@@ -72,10 +85,14 @@ def extract_pdf_text(path):
         pass
     try:
         from pdfminer.high_level import extract_text
+
         return extract_text(str(path))
     except ImportError:
         pass
-    print("Error: PDF context requires pymupdf or pdfminer. Install with: pip3 install pymupdf", file=sys.stderr)
+    print(
+        "Error: PDF context requires pymupdf or pdfminer. Install with: pip3 install pymupdf",
+        file=sys.stderr,
+    )
     sys.exit(1)
 
 
@@ -97,7 +114,7 @@ def resolve_output_dir(args, config):
     """Resolve the base output directory from --output, config, or default."""
     if getattr(args, "output", None):
         return Path(args.output).expanduser().resolve()
-    save_dir = config.get("output", {}).get("save_dir", "digests")
+    save_dir = config.get("output", {}).get("save_dir", "output")
     return BASE_DIR / save_dir
 
 
@@ -112,7 +129,7 @@ def cmd_daily(args):
     lookback = config.get("lookback_days", 1)
     # Weekends and Mondays: arXiv doesn't publish Sat/Sun, so look back further
     weekday = date.today().weekday()
-    if weekday == 0:    # Monday — cover Fri+Sat+Sun
+    if weekday == 0:  # Monday — cover Fri+Sat+Sun
         lookback = max(lookback, 3)
     elif weekday == 5:  # Saturday — cover Thu+Fri
         lookback = max(lookback, 2)
@@ -185,16 +202,16 @@ def cmd_daily(args):
             if cached:
                 papers = cached
                 cache_file = cf
-                print(f"# No new papers today — using most recent cache: {cf.name} ({len(papers)} papers)", file=sys.stderr)
+                print(
+                    f"# No new papers today — using most recent cache: {cf.name} ({len(papers)} papers)",
+                    file=sys.stderr,
+                )
                 break
 
     # Ensure output directory for today exists
     today_str = date.today().isoformat()
     today_output = output_dir / today_str
     today_output.mkdir(parents=True, exist_ok=True)
-
-    # Compute podcast directory as sibling of base output dir
-    podcast_dir = output_dir.parent / "podcasts" / today_str
 
     # Pre-compute tier boundaries
     tiers = {
@@ -207,14 +224,16 @@ def cmd_daily(args):
         "context": context_text,
         "context_source": context_source,
         "output_dir": str(today_output),
-        "podcast_dir": str(podcast_dir),
         "date": today_str,
         "relevance_threshold": threshold,
         "tiers": tiers,
         "papers": papers,
     }
     print(json.dumps(output, indent=2))
-    print(f"\n# Fetched {len(papers)} new papers (cached to {cache_file})", file=sys.stderr)
+    print(
+        f"\n# Fetched {len(papers)} new papers (cached to {cache_file})",
+        file=sys.stderr,
+    )
     print(f"# Output directory: {today_output}", file=sys.stderr)
 
 
@@ -251,9 +270,17 @@ def cmd_search(args):
 
 def cmd_config(args):
     if args.show:
-        with open(CONFIG_FILE) as f:
+        cfg = CONFIG_FILE if CONFIG_FILE.exists() else CONFIG_EXAMPLE
+        with open(cfg) as f:
             print(f.read())
     elif args.set:
+        if not CONFIG_FILE.exists():
+            print(
+                "Error: config.yaml does not exist. "
+                "Copy config.example.yaml to config.yaml first.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
         key, _, value = args.set.partition("=")
         config = load_config()
         # Handle nested keys with dot notation
@@ -330,6 +357,7 @@ def cmd_save(args):
         papers_path = digest_dir / "papers.json"
         if not papers_path.exists():
             import shutil
+
             shutil.copy2(cache_file, papers_path)
 
     print(f"Digest saved to {output_path}", file=sys.stderr)
@@ -345,19 +373,36 @@ def main():
 
     # daily
     p_daily = subparsers.add_parser("daily", help="Fetch today's papers")
-    p_daily.add_argument("--categories", type=str, help="Comma-separated arXiv categories")
+    p_daily.add_argument(
+        "--categories", type=str, help="Comma-separated arXiv categories"
+    )
     p_daily.add_argument("--max", type=int, help="Max papers to fetch")
-    p_daily.add_argument("--context", type=str, help="Path to context file (README, spec, etc.)")
-    p_daily.add_argument("--output", type=str, help="Base output directory (default: digests/)")
-    p_daily.add_argument("--threshold", type=int, help="Relevance threshold for deep analysis (default: from config)")
-    p_daily.add_argument("--from-file", type=str, dest="from_file", help="Read pre-fetched papers from JSON file instead of querying the API")
+    p_daily.add_argument(
+        "--context", type=str, help="Path to context file (README, spec, etc.)"
+    )
+    p_daily.add_argument(
+        "--output", type=str, help="Base output directory (default: output/)"
+    )
+    p_daily.add_argument(
+        "--threshold",
+        type=int,
+        help="Relevance threshold for deep analysis (default: from config)",
+    )
+    p_daily.add_argument(
+        "--from-file",
+        type=str,
+        dest="from_file",
+        help="Read pre-fetched papers from JSON file instead of querying the API",
+    )
     p_daily.set_defaults(func=cmd_daily)
 
     # search
     p_search = subparsers.add_parser("search", help="Search arXiv for papers")
     p_search.add_argument("query", type=str, help="Search query")
     p_search.add_argument("--max", type=int, help="Max results")
-    p_search.add_argument("--context", type=str, help="Path to context file (README, spec, etc.)")
+    p_search.add_argument(
+        "--context", type=str, help="Path to context file (README, spec, etc.)"
+    )
     p_search.set_defaults(func=cmd_search)
 
     # config
@@ -369,14 +414,20 @@ def main():
     # history
     p_history = subparsers.add_parser("history", help="Show digest history")
     p_history.add_argument("--last", type=int, default=7, help="Number of days to show")
-    p_history.add_argument("--output", type=str, help="Base output directory (default: digests/)")
+    p_history.add_argument(
+        "--output", type=str, help="Base output directory (default: output/)"
+    )
     p_history.set_defaults(func=cmd_history)
 
     # save
     p_save = subparsers.add_parser("save", help="Save digest content")
     p_save.add_argument("--date", type=str, help="Date for this digest (YYYY-MM-DD)")
-    p_save.add_argument("--file", type=str, default="/dev/stdin", help="File to read content from")
-    p_save.add_argument("--output", type=str, help="Base output directory (default: digests/)")
+    p_save.add_argument(
+        "--file", type=str, default="/dev/stdin", help="File to read content from"
+    )
+    p_save.add_argument(
+        "--output", type=str, help="Base output directory (default: output/)"
+    )
     p_save.set_defaults(func=cmd_save)
 
     args = parser.parse_args()

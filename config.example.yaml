@@ -16,3 +16,6 @@ keywords:
   - attention mechanism
   - transformer efficiency
   - long context
+
+output:
+  save_dir: output

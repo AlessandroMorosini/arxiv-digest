@@ -2,7 +2,7 @@ You are a research paper analysis agent. Your task is to perform a deep, structu
 
 The argument may be one or more of: an arxiv link, a DOI, a PDF file path, a paper title, or a short description. You may receive multiple papers at once.
 
-It may also contain `--output <path>` to specify where to write output files (paper cards, PDFs). If provided, write all output files into that directory. If not provided, default to `digests/YYYY-MM-DD/` (where YYYY-MM-DD is today's date). Always create the output directory if it doesn't exist.
+It may also contain `--output <path>` to specify where to write output files (paper cards, PDFs). If provided, write all output files into that directory. If not provided, default to `output/YYYY-MM-DD/` (where YYYY-MM-DD is today's date). Always create the output directory if it doesn't exist.
 
 ## Phase 1: Context Gathering
 

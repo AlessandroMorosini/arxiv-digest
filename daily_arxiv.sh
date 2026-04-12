@@ -10,7 +10,7 @@
 
 set -euo pipefail
 
-PROJECT_DIR="/Users/alessandromorosini/Desktop/arxiv-digest"
+PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
 LOG_DIR="$HOME/logs"
 DATE=$(date +%Y-%m-%d)
 LOGFILE="$LOG_DIR/arxiv-digest-${DATE}.log"
@@ -67,14 +67,6 @@ if [[ $EXIT_CODE -eq 0 ]]; then
   if [[ -d "output/$DATE" ]]; then
     echo "Output files:" | tee -a "$LOGFILE"
     ls -lh "output/$DATE/" 2>/dev/null | tee -a "$LOGFILE"
-  fi
-  if [[ -d "digests/$DATE" ]]; then
-    echo "Digest files:" | tee -a "$LOGFILE"
-    ls -lh "digests/$DATE/" 2>/dev/null | tee -a "$LOGFILE"
-  fi
-  if [[ -d "podcasts/$DATE" ]]; then
-    echo "Podcast files:" | tee -a "$LOGFILE"
-    ls -lh "podcasts/$DATE/" 2>/dev/null | tee -a "$LOGFILE"
   fi
 else
   echo "[$DATE] Pipeline failed with exit code $EXIT_CODE" | tee -a "$LOGFILE"

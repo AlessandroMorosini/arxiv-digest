@@ -27,7 +27,7 @@ Determine what was passed in `$ARGUMENTS`:
 - **If it contains a file path** (e.g., `./README.md`, `~/Desktop/CausalML/README.md`, `/path/to/spec.md`, `./paper.pdf`): use it as `--context` to tailor the paper search to that project.
 - **If it contains `--output <path>`** (e.g., `--output ~/research/cards`): use it as the base output directory. Paper cards and digests will be stored in `<path>/YYYY-MM-DD/`.
 - **If it contains `--threshold N`** (e.g., `--threshold 6`): pass it through to `arxiv_tool.py daily` to override the relevance threshold for deep analysis.
-- **If empty or no file path**: fall back to the default config interests and default output directory (`digests/`).
+- **If empty or no file path**: fall back to the default config interests and default output directory (`output/`).
 
 Fetch papers:
 
@@ -46,15 +46,14 @@ python3 ./arxiv_tool.py daily
 ```
 
 The CLI returns a JSON object with pre-computed fields:
-- `output_dir` — date-specific directory for file writes (e.g., `digests/2026-03-02/`)
-- `podcast_dir` — podcast output directory (e.g., `podcasts/2026-03-02/`)
+- `output_dir` — date-specific directory for all output (e.g., `output/2026-03-02/`): paper cards, podcasts, digest, and PDF report all go here
 - `date` — the YYYY-MM-DD date string
 - `relevance_threshold` — the threshold value
 - `tiers.top` — minimum score for Top Picks (= threshold)
 - `tiers.mid` — minimum score for Worth a Look (= threshold - 3)
 - `papers` — the fetched paper list
 
-Use these fields directly. Do NOT compute tier boundaries or podcast paths yourself.
+Use these fields directly. Do NOT compute tier boundaries yourself.
 
 ## Phase 2: Understand the research context
 
@@ -141,7 +140,7 @@ For each paper, use:
 - `subagent_type: "podcast-generator"`
 - `description: "Generate podcast: <short title>"`
 
-Use `podcast_dir` and `date` from the JSON output directly.
+Use `output_dir` and `date` from the JSON output directly.
 
 Each subagent prompt should contain (include the listener context section only when a research context was provided in Phase 2):
 
@@ -154,7 +153,7 @@ Generate a podcast episode for this arXiv paper.
 - Date: <date>
 
 ## Output directory
-<podcast_dir>
+<output_dir>
 
 ## Listener context
 <1-2 sentence summary of the listener's expertise from Phase 2, describing concepts/techniques they already understand — e.g., "multi-turn LLM evaluation, reward modeling, RLHF pipelines". The podcast should NOT explain these basics.>

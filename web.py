@@ -9,8 +9,9 @@ from flask import Flask, abort, render_template, request, send_from_directory
 app = Flask(__name__)
 
 BASE_DIR = Path(__file__).parent
-DIGESTS_DIR = BASE_DIR / "digests"
-PODCASTS_DIR = BASE_DIR / "podcasts"
+OUTPUT_DIR = BASE_DIR / "output"
+LEGACY_DIGESTS_DIR = BASE_DIR / "digests"
+LEGACY_PODCASTS_DIR = BASE_DIR / "podcasts"
 
 
 def slugify(text: str, max_len: int = 50) -> str:
@@ -23,20 +24,31 @@ def strip_version(arxiv_id: str) -> str:
 
 
 def get_dates() -> list[str]:
-    if not DIGESTS_DIR.exists():
-        return []
-    return sorted(
-        [
-            d.name
-            for d in DIGESTS_DIR.iterdir()
-            if d.is_dir() and re.match(r"\d{4}-\d{2}-\d{2}$", d.name)
-        ],
-        reverse=True,
-    )
+    dates = set()
+    for directory in (OUTPUT_DIR, LEGACY_DIGESTS_DIR):
+        if directory.exists():
+            for d in directory.iterdir():
+                if d.is_dir() and re.match(r"\d{4}-\d{2}-\d{2}$", d.name):
+                    dates.add(d.name)
+    return sorted(dates, reverse=True)
+
+
+def resolve_date_dir(date: str) -> Path | None:
+    """Resolve date directory, preferring output/ over legacy digests/."""
+    primary = OUTPUT_DIR / date
+    if primary.is_dir():
+        return primary
+    legacy = LEGACY_DIGESTS_DIR / date
+    if legacy.is_dir():
+        return legacy
+    return None
 
 
 def load_papers_json(date: str) -> dict:
-    path = DIGESTS_DIR / date / "papers.json"
+    date_dir = resolve_date_dir(date)
+    if not date_dir:
+        return {}
+    path = date_dir / "papers.json"
     if not path.exists():
         return {}
     with open(path) as f:
@@ -45,7 +57,10 @@ def load_papers_json(date: str) -> dict:
 
 
 def parse_digest(date: str) -> tuple[list[dict], dict]:
-    path = DIGESTS_DIR / date / "digest.md"
+    date_dir = resolve_date_dir(date)
+    if not date_dir:
+        return [], {}
+    path = date_dir / "digest.md"
     if not path.exists():
         return [], {}
 
@@ -149,7 +164,7 @@ def index():
 def digest(date):
     if not re.match(r"\d{4}-\d{2}-\d{2}$", date):
         abort(404)
-    if not (DIGESTS_DIR / date).is_dir():
+    if not resolve_date_dir(date):
         abort(404)
 
     papers_scored, header = parse_digest(date)
@@ -232,21 +247,30 @@ def search():
                             "score": scored["score"] if scored else None,
                             "primary_category": full.get("primary_category", ""),
                             "abstract_snippet": (
-                                abstract[:200] + "..." if len(abstract) > 200 else abstract
+                                abstract[:200] + "..."
+                                if len(abstract) > 200
+                                else abstract
                             ),
                         }
                     )
     return render_template("search.html", query=query, results=results)
 
 
+@app.route("/files/output/<path:filepath>")
+def serve_output_file(filepath):
+    return send_from_directory(OUTPUT_DIR, filepath)
+
+
 @app.route("/files/digests/<path:filepath>")
-def serve_digest_file(filepath):
-    return send_from_directory(DIGESTS_DIR, filepath)
+def serve_legacy_digest_file(filepath):
+    """Serve files from legacy digests/ directory for old digest.md references."""
+    return send_from_directory(LEGACY_DIGESTS_DIR, filepath)
 
 
 @app.route("/files/podcasts/<path:filepath>")
-def serve_podcast_file(filepath):
-    return send_from_directory(PODCASTS_DIR, filepath)
+def serve_legacy_podcast_file(filepath):
+    """Serve files from legacy podcasts/ directory for old digest.md references."""
+    return send_from_directory(LEGACY_PODCASTS_DIR, filepath)
 
 
 if __name__ == "__main__":

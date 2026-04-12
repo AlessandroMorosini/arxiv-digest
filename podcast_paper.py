@@ -60,7 +60,7 @@ async def generate_podcast(arxiv_url: str, title: str, output_dir: Path, date_st
             nb.id,
             instructions=instructions,
         )
-        await client.artifacts.wait_for_completion(nb.id, status.task_id, timeout=900)
+        await client.artifacts.wait_for_completion(nb.id, status.task_id, timeout=1800)
 
         # Download the generated audio (retry with backoff — artifact may
         # not be immediately available after wait_for_completion returns)
